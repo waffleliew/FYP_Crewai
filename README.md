@@ -22,16 +22,8 @@ The AI-Automation-Finance covers a wide range of topics related to AI-assisted a
   + No-code/low-code AI tools for finance and investing
 
 
-## Getting Started
-
-To get started with AI-Automation-Finance watch this video:
-
-[![AI Automation for Finance](https://img.youtube.com/vi/pMvizUx5n1g/0.jpg)](https://youtu.be/pMvizUx5n1g)
-
-
-1. Fork this replit to create your own development environment: [https://replit.com/@DerekCheung9/AI-Automation-For-Finance](https://replit.com/@DerekCheung9/AI-Automation-For-Finance)
-2. Set the values for the environment variables
-3. Run python main.py
+1. Set the values for the environment variables
+2. Run python main.py
 
 
 ## Contributing
@@ -53,10 +45,3 @@ We are committed to creating a welcoming and inclusive community for everyone. P
 ## License
 
 AI-Automation-Finance is licensed under the Apache 2.0 license. See the [LICENSE](LICENSE) file for more information.
-
-## Contact
-
-If you have any questions or feedback, please don't hesitate to contact us. You can reach us by opening an issue or sending an email to [derekcheungsa@gmail.com].
-
-Thank you for joining us in AI-Automation-Finance! We look forward to learning and growing with you.
-
