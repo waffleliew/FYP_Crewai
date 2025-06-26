@@ -1,0 +1,807 @@
+{
+    "company": {
+        "ticker": "INTU",
+        "name": "Apple Inc.",
+        "market_cap": 2975211192320,
+        "revenue": 400366010368,
+        "profit_margin": 0.24301,
+        "operating_margin": 0.31028998,
+        "pe_ratio": 31.028036,
+        "beta": 1.211,
+        "market_share": 30.055567261610378
+    },
+    "competitors": [
+        {
+            "ticker": "MSFT",
+            "name": "Microsoft Corporation",
+            "market_cap": 3559220576256,
+            "revenue": 270010007552,
+            "profit_margin": 0.35789,
+            "operating_margin": 0.45671,
+            "pe_ratio": 36.97838,
+            "beta": 1.026,
+            "market_share": 20.269712545847256
+        },
+        {
+            "ticker": "NVDA",
+            "name": "NVIDIA Corporation",
+            "market_cap": 3536201973760,
+            "revenue": 148514996224,
+            "profit_margin": 0.51694,
+            "operating_margin": 0.49108002,
+            "pe_ratio": 46.774197,
+            "beta": 2.122,
+            "market_share": 11.149054472095148
+        },
+        {
+            "ticker": "AAPL",
+            "name": "Apple Inc.",
+            "market_cap": 2975211192320,
+            "revenue": 400366010368,
+            "profit_margin": 0.24301,
+            "operating_margin": 0.31028998,
+            "pe_ratio": 31.028036,
+            "beta": 1.211,
+            "market_share": 30.055567261610378
+        },
+        {
+            "ticker": "AVGO",
+            "name": "Broadcom Inc.",
+            "market_cap": 1204417593344,
+            "revenue": 57045999616,
+            "profit_margin": 0.22643,
+            "operating_margin": 0.31765,
+            "pe_ratio": 93.45621,
+            "beta": 1.122,
+            "market_share": 4.282456137793875
+        },
+        {
+            "ticker": "ORCL",
+            "name": "Oracle Corporation",
+            "market_cap": 560453386240,
+            "revenue": 55782998016,
+            "profit_margin": 0.21799,
+            "operating_margin": 0.31295002,
+            "pe_ratio": 46.805622,
+            "beta": 1.324,
+            "market_share": 4.187642321042972
+        }
+    ],
+    "industry": "Consumer Electronics",
+    "sector": "Technology",
+    "news_analysis": {
+        "company_news": [
+            {
+                "id": "f402eb67-b67d-3c1e-9254-561961517ab7",
+                "content": {
+                    "id": "f402eb67-b67d-3c1e-9254-561961517ab7",
+                    "contentType": "VIDEO",
+                    "title": "Consumer sentiment, Regeneron meeting, Apple WWDC: What to Watch",
+                    "description": "<p>Market Domination Overtime hosts <a data-i13n=\"cpos:1;pos:1\" href=\"https://finance.yahoo.com/author/julie-hyman/\">Julie Hyman</a> and <a data-i13n=\"cpos:2;pos:1\" href=\"https://finance.yahoo.com/author/josh-lipton/\">Josh Lipton</a> preview the top market stories and headlines Wall Street will be paying attention to tomorrow, Friday, June 13, including June's preliminary consumer sentiment reading, Regeneron Pharmaceuticals' (<a data-i13n=\"cpos:3;pos:1\" href=\"https://finance.yahoo.com/quote/REGN\">REGN</a>) annual shareholder meeting, and the closing day of Apple's (<a data-i13n=\"cpos:4;pos:1\" href=\"https://finance.yahoo.com/quote/AAPL\">AAPL</a>) <a data-i13n=\"cpos:5;pos:1\" href=\"https://finance.yahoo.com/news/classic-apple-why-apple-is-taking-the-slow-road-with-ai-190306633.html\">2025 Worldwide Developers Conference (WWDC).</a></p>\n<p>To watch more expert insights and analysis on the latest market action, check out more Market Domination Overtime\u00a0<a data-i13n=\"cpos:6;pos:1\" href=\"https://finance.yahoo.com/videos/series/market-domination-overtime/\">here</a>.</p>",
+                    "summary": "Market Domination Overtime hosts Julie Hyman and Josh Lipton preview the top market stories and headlines Wall Street will be paying attention to tomorrow, Friday, June 13, including June's preliminary consumer sentiment reading, Regeneron Pharmaceuticals' (REGN) annual shareholder meeting, and the closing day of Apple's (AAPL) 2025 Worldwide Developers Conference (WWDC). To watch more expert insights and analysis on the latest market action, check out more Market Domination Overtime&nbsp;here.",
+                    "pubDate": "2025-06-12T23:00:00Z",
+                    "displayTime": "",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/7c403970-478d-11f0-b7fb-a6f6efff4a45",
+                        "originalWidth": 1920,
+                        "originalHeight": 1080,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/M48guJZ8INcd5OJIzp4Gjg--~B/aD0xMDgwO3c9MTkyMDthcHBpZD15dGFjaHlvbg--/https://s.yimg.com/os/creatr-uploaded-images/2025-06/7c403970-478d-11f0-b7fb-a6f6efff4a45",
+                                "width": 1920,
+                                "height": 1080,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/OzaBCwaeukW5zvgzaLG77g--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-06/7c403970-478d-11f0-b7fb-a6f6efff4a45",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Yahoo Finance Video",
+                        "url": "https://finance.yahoo.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/video/consumer-sentiment-regeneron-meeting-apple-230000900.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/video/consumer-sentiment-regeneron-meeting-apple-230000900.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": true
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            },
+            {
+                "id": "989c444c-2fd9-3bd9-97d0-e5fd045877a1",
+                "content": {
+                    "id": "989c444c-2fd9-3bd9-97d0-e5fd045877a1",
+                    "contentType": "VIDEO",
+                    "title": "'Mag 7' turned 'Mid 7': Is 2025 the end of tech dominance?",
+                    "description": "<p>The tech sector (<a data-i13n=\"cpos:1;pos:1\" href=\"https://finance.yahoo.com/quote/XLK\">XLK</a>), specifically the \"Magnificent Seven,\" made up of Nvidia (<a data-i13n=\"cpos:2;pos:1\" href=\"https://finance.yahoo.com/quote/NVDA\">NVDA</a>), Alphabet (<a data-i13n=\"cpos:3;pos:1\" href=\"https://finance.yahoo.com/quote/GOOG\">GOOG</a>,<a data-i13n=\"cpos:4;pos:1\" href=\"https://finance.yahoo.com/quote/GOOGL\"> GOOGL</a>), Tesla (<a data-i13n=\"cpos:5;pos:1\" href=\"https://finance.yahoo.com/quote/TSLA\">TSLA</a>), Microsoft (<a data-i13n=\"cpos:6;pos:1\" href=\"https://finance.yahoo.com/quote/MSFT\">MSFT</a>), Amazon (<a data-i13n=\"cpos:7;pos:1\" href=\"https://finance.yahoo.com/quote/AMZN\">AMZN</a>), Meta (<a data-i13n=\"cpos:8;pos:1\" href=\"https://finance.yahoo.com/quote/META\">META</a>), and Apple (<a data-i13n=\"cpos:9;pos:1\" href=\"https://finance.yahoo.com/quote/AAPL\">AAPL</a>), was a significant driver of market gains in 2023 and 2024. However, 2025 has been a different story so far.</p>\n<p>Yahoo Finance Markets Reporter <a data-i13n=\"cpos:10;pos:1\" href=\"https://finance.yahoo.com/author/josh-schafer/\">Josh Schafer</a> and Wall Street Alliance Group partner Aadil Zaman sit down with <a data-i13n=\"cpos:11;pos:1\" href=\"https://finance.yahoo.com/author/bradley-smith/\">Brad Smith</a> on Catalysts to take a look at how the Magnificent Seven has underperformed the wider market in 2025.</p>\n<p>To watch more expert insights and analysis on the latest market action, check out more Catalysts <a data-i13n=\"cpos:12;pos:1\" href=\"https://finance.yahoo.com/videos/series/catalysts/\">here</a>.</p>",
+                    "summary": "The tech sector (XLK), specifically the \"Magnificent Seven,\" made up of Nvidia (NVDA), Alphabet (GOOG, GOOGL), Tesla (TSLA), Microsoft (MSFT), Amazon (AMZN), Meta (META), and Apple (AAPL), was a significant driver of market gains in 2023 and 2024. However, 2025 has been a different story so far. Yahoo Finance Markets Reporter Josh Schafer and Wall Street Alliance Group partner Aadil Zaman sit down with Brad Smith on Catalysts to take a look at how the Magnificent Seven has underperformed the wider market in 2025. To watch more expert insights and analysis on the latest market action, check out more Catalysts here.",
+                    "pubDate": "2025-06-12T15:05:05Z",
+                    "displayTime": "",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                        "originalWidth": 1509,
+                        "originalHeight": 849,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/SE4j9AsrAMTNz18_ewJ0qw--~B/aD04NDk7dz0xNTA5O2FwcGlkPXl0YWNoeW9u/https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                                "width": 1509,
+                                "height": 849,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/qYCUHE7jjD0j0YKvuQmsmw--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Yahoo Finance Video",
+                        "url": "https://finance.yahoo.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/video/mag-7-turned-mid-7-150505452.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/video/mag-7-turned-mid-7-150505452.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": true
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            },
+            {
+                "id": "729e6c02-d90f-3224-9528-1cf96725488d",
+                "content": {
+                    "id": "729e6c02-d90f-3224-9528-1cf96725488d",
+                    "contentType": "VIDEO",
+                    "title": "Apple Execs on AI Setbacks, Siri Delays, iPads and More (Full Interview)",
+                    "description": "WSJ\u2019s Joanna Stern sits down with Apple software chief Craig Federighi and marketing head Greg Joswiak at WWDC 2025 in Cupertino to talk about the future of AI, what happened to Siri, the new Liquid Glass redesign, iPads vs. Macs, tariffs and more.",
+                    "summary": "WSJ\u2019s Joanna Stern sits down with Apple software chief Craig Federighi and marketing head Greg Joswiak at WWDC 2025 in Cupertino to talk about the future of AI, what happened to Siri, the new Liquid Glass redesign, iPads vs. Macs, tariffs and more.",
+                    "pubDate": "2025-06-13T04:01:00Z",
+                    "displayTime": "",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://media.zenfs.com/en/wall_street_journal_733/28efa4c9f41cb1f5f0e4426b83223963",
+                        "originalWidth": 1280,
+                        "originalHeight": 720,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/dhGxtc_yFDrB_7dZUKJTmg--~B/aD03MjA7dz0xMjgwO2FwcGlkPXl0YWNoeW9u/https://media.zenfs.com/en/wall_street_journal_733/28efa4c9f41cb1f5f0e4426b83223963",
+                                "width": 1280,
+                                "height": 720,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/PMnINZUBgEowEDvqq78A3A--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/wall_street_journal_733/28efa4c9f41cb1f5f0e4426b83223963",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "WSJ",
+                        "url": "https://www.wsj.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/video/apple-execs-ai-setbacks-siri-040100632.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/video/apple-execs-ai-setbacks-siri-040100632.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": false
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            },
+            {
+                "id": "220227a8-d742-396a-ad1f-768b697fcc90",
+                "content": {
+                    "id": "220227a8-d742-396a-ad1f-768b697fcc90",
+                    "contentType": "STORY",
+                    "title": "Apple (AAPL) Stock Holds Steady as Analysts Call WWDC25 a \u2018Transition Year\u2019",
+                    "description": "",
+                    "summary": "Apple Inc. (NASDAQ:AAPL) is one of the 15 AI Stocks Making Waves on Wall Street. On June 10, Evercore ISI analyst Amit Daryanani reiterated an \u201cOutperform\u201d rating and $250.00 price target on Apple Inc. (NASDAQ:AAPL). Highlighting the recent keynote, analysts stated how it matched expectations of a transition year and that there were minimal announcements. One [\u2026]",
+                    "pubDate": "2025-06-13T03:11:34Z",
+                    "displayTime": "2025-06-13T03:11:34Z",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://media.zenfs.com/en/insidermonkey.com/5957d28856b6a51893a0b5aea642f22d",
+                        "originalWidth": 1024,
+                        "originalHeight": 1024,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/N1loogNhITZHaAdMofYsbQ--~B/aD0xMDI0O3c9MTAyNDthcHBpZD15dGFjaHlvbg--/https://media.zenfs.com/en/insidermonkey.com/5957d28856b6a51893a0b5aea642f22d",
+                                "width": 1024,
+                                "height": 1024,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/pMV4RW53T7eRZq62UYM1Yg--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/insidermonkey.com/5957d28856b6a51893a0b5aea642f22d",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Insider Monkey",
+                        "url": "http://www.insidermonkey.com"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/news/apple-aapl-stock-holds-steady-031134254.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/news/apple-aapl-stock-holds-steady-031134254.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": false
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            },
+            {
+                "id": "aec36577-5c20-3b93-adcc-78a0838f3841",
+                "content": {
+                    "id": "aec36577-5c20-3b93-adcc-78a0838f3841",
+                    "contentType": "STORY",
+                    "title": "Exclusive-Foxconn sends 97% of India iPhone exports to US as Apple tackles Trump's tariffs",
+                    "description": "",
+                    "summary": "NEW DELHI (Reuters) -Nearly all the iPhones exported by Foxconn from India went to the United States between March and May, customs data showed, far above the 2024 average of 50% and a clear sign of Apple's efforts to bypass high U.S. tariffs imposed on China.  The numbers, being reported by Reuters for the first time, show Apple has realigned its India exports to almost exclusively serve the U.S. market, when previously the devices were more widely distributed to countries including the Netherlands, the Czech Republic and Britain.  During March-May, Foxconn exported iPhones worth $3.2 billion from India, with an average 97% shipped to the United States, compared to a 2024 average of 50.3%, according to commercially available customs data seen by Reuters.",
+                    "pubDate": "2025-06-13T03:01:37Z",
+                    "displayTime": "2025-06-13T03:01:37Z",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://media.zenfs.com/en/reuters.com/1ae897ee6c201baed74f0d00334bc186",
+                        "originalWidth": 800,
+                        "originalHeight": 534,
+                        "caption": "FILE PHOTO: A view of Apple iPhones displayed at an Apple Store at Grand Central Terminal in New York",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/enVCi1lbKkhaY3jyNgYenQ--~B/aD01MzQ7dz04MDA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/reuters.com/1ae897ee6c201baed74f0d00334bc186",
+                                "width": 800,
+                                "height": 534,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/5hELtWvi3Xs5NoQadMk7bA--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://media.zenfs.com/en/reuters.com/1ae897ee6c201baed74f0d00334bc186",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Reuters",
+                        "url": "https://www.reuters.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/news/exclusive-foxconn-sends-97-india-030137740.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/news/exclusive-foxconn-sends-97-india-030137740.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": false
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            }
+        ],
+        "competitor_news": [
+            {
+                "id": "7daa35f8-fcc5-4309-af2c-e90250d8d664",
+                "content": {
+                    "id": "7daa35f8-fcc5-4309-af2c-e90250d8d664",
+                    "contentType": "STORY",
+                    "title": "Oracle stock touches all-time high after earnings beat",
+                    "description": "",
+                    "summary": "Oracle stock jumped Thursday to touch an all-time high of $202.44 after the company's fiscal fourth quarter results topped Wall Street's expectations.",
+                    "pubDate": "2025-06-12T16:52:24Z",
+                    "displayTime": "2025-06-12T20:04:16Z",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/ca606c40-47a8-11f0-bbef-3b4ecbecca84",
+                        "originalWidth": 5205,
+                        "originalHeight": 3470,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/W_SBO2iUXTndK2nHeHwVeg--~B/aD0zNDcwO3c9NTIwNTthcHBpZD15dGFjaHlvbg--/https://s.yimg.com/os/creatr-uploaded-images/2025-06/ca606c40-47a8-11f0-bbef-3b4ecbecca84",
+                                "width": 5205,
+                                "height": 3470,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/CkJVR10PFslHWGE4h_2jqA--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-06/ca606c40-47a8-11f0-bbef-3b4ecbecca84",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Yahoo Finance",
+                        "url": "http://finance.yahoo.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/news/oracle-stock-touches-all-time-high-after-earnings-beat-165224247.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/news/oracle-stock-touches-all-time-high-after-earnings-beat-165224247.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": true
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            },
+            {
+                "id": "989c444c-2fd9-3bd9-97d0-e5fd045877a1",
+                "content": {
+                    "id": "989c444c-2fd9-3bd9-97d0-e5fd045877a1",
+                    "contentType": "VIDEO",
+                    "title": "'Mag 7' turned 'Mid 7': Is 2025 the end of tech dominance?",
+                    "description": "<p>The tech sector (<a data-i13n=\"cpos:1;pos:1\" href=\"https://finance.yahoo.com/quote/XLK\">XLK</a>), specifically the \"Magnificent Seven,\" made up of Nvidia (<a data-i13n=\"cpos:2;pos:1\" href=\"https://finance.yahoo.com/quote/NVDA\">NVDA</a>), Alphabet (<a data-i13n=\"cpos:3;pos:1\" href=\"https://finance.yahoo.com/quote/GOOG\">GOOG</a>,<a data-i13n=\"cpos:4;pos:1\" href=\"https://finance.yahoo.com/quote/GOOGL\"> GOOGL</a>), Tesla (<a data-i13n=\"cpos:5;pos:1\" href=\"https://finance.yahoo.com/quote/TSLA\">TSLA</a>), Microsoft (<a data-i13n=\"cpos:6;pos:1\" href=\"https://finance.yahoo.com/quote/MSFT\">MSFT</a>), Amazon (<a data-i13n=\"cpos:7;pos:1\" href=\"https://finance.yahoo.com/quote/AMZN\">AMZN</a>), Meta (<a data-i13n=\"cpos:8;pos:1\" href=\"https://finance.yahoo.com/quote/META\">META</a>), and Apple (<a data-i13n=\"cpos:9;pos:1\" href=\"https://finance.yahoo.com/quote/AAPL\">AAPL</a>), was a significant driver of market gains in 2023 and 2024. However, 2025 has been a different story so far.</p>\n<p>Yahoo Finance Markets Reporter <a data-i13n=\"cpos:10;pos:1\" href=\"https://finance.yahoo.com/author/josh-schafer/\">Josh Schafer</a> and Wall Street Alliance Group partner Aadil Zaman sit down with <a data-i13n=\"cpos:11;pos:1\" href=\"https://finance.yahoo.com/author/bradley-smith/\">Brad Smith</a> on Catalysts to take a look at how the Magnificent Seven has underperformed the wider market in 2025.</p>\n<p>To watch more expert insights and analysis on the latest market action, check out more Catalysts <a data-i13n=\"cpos:12;pos:1\" href=\"https://finance.yahoo.com/videos/series/catalysts/\">here</a>.</p>",
+                    "summary": "The tech sector (XLK), specifically the \"Magnificent Seven,\" made up of Nvidia (NVDA), Alphabet (GOOG, GOOGL), Tesla (TSLA), Microsoft (MSFT), Amazon (AMZN), Meta (META), and Apple (AAPL), was a significant driver of market gains in 2023 and 2024. However, 2025 has been a different story so far. Yahoo Finance Markets Reporter Josh Schafer and Wall Street Alliance Group partner Aadil Zaman sit down with Brad Smith on Catalysts to take a look at how the Magnificent Seven has underperformed the wider market in 2025. To watch more expert insights and analysis on the latest market action, check out more Catalysts here.",
+                    "pubDate": "2025-06-12T15:05:05Z",
+                    "displayTime": "",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                        "originalWidth": 1509,
+                        "originalHeight": 849,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/SE4j9AsrAMTNz18_ewJ0qw--~B/aD04NDk7dz0xNTA5O2FwcGlkPXl0YWNoeW9u/https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                                "width": 1509,
+                                "height": 849,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/qYCUHE7jjD0j0YKvuQmsmw--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Yahoo Finance Video",
+                        "url": "https://finance.yahoo.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/video/mag-7-turned-mid-7-150505452.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/video/mag-7-turned-mid-7-150505452.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": true
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            },
+            {
+                "id": "c5d91de7-d17b-4ac5-8eeb-3d79fd52475c",
+                "content": {
+                    "id": "c5d91de7-d17b-4ac5-8eeb-3d79fd52475c",
+                    "contentType": "STORY",
+                    "title": "AMD launches MI350 AI chip line to rival Nvidia's Blackwell processors, debuts AI cloud service",
+                    "description": "",
+                    "summary": "AMD launched its MI350 line of AI chips on Thursday.",
+                    "pubDate": "2025-06-12T18:30:46Z",
+                    "displayTime": "2025-06-12T18:30:46Z",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/ed854b30-47af-11f0-bffe-421b2b16a462",
+                        "originalWidth": 3840,
+                        "originalHeight": 3840,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/wul5fyNsY0yXzGgcToxb9g--~B/aD0zODQwO3c9Mzg0MDthcHBpZD15dGFjaHlvbg--/https://s.yimg.com/os/creatr-uploaded-images/2025-06/ed854b30-47af-11f0-bffe-421b2b16a462",
+                                "width": 3840,
+                                "height": 3840,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/TVScqjxIJJoWdXraGCJ7LQ--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-06/ed854b30-47af-11f0-bffe-421b2b16a462",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Yahoo Finance",
+                        "url": "http://finance.yahoo.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/news/amd-launches-mi350-ai-chip-line-to-rival-nvidias-blackwell-processors-debuts-ai-cloud-service-183046317.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/news/amd-launches-mi350-ai-chip-line-to-rival-nvidias-blackwell-processors-debuts-ai-cloud-service-183046317.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": true
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": {
+                        "storylineItems": [
+                            {
+                                "content": {
+                                    "id": "989c444c-2fd9-3bd9-97d0-e5fd045877a1",
+                                    "contentType": "VIDEO",
+                                    "isHosted": true,
+                                    "title": "'Mag 7' turned 'Mid 7': Is 2025 the end of tech dominance?",
+                                    "thumbnail": {
+                                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                                        "originalWidth": 1509,
+                                        "originalHeight": 849,
+                                        "caption": "",
+                                        "resolutions": null
+                                    },
+                                    "provider": {
+                                        "displayName": "Yahoo Finance Video",
+                                        "sourceId": "video.yahoofinance.com"
+                                    },
+                                    "previewUrl": null,
+                                    "providerContentUrl": "",
+                                    "canonicalUrl": {
+                                        "url": "https://finance.yahoo.com/video/mag-7-turned-mid-7-150505452.html"
+                                    },
+                                    "clickThroughUrl": {
+                                        "url": "https://finance.yahoo.com/video/mag-7-turned-mid-7-150505452.html"
+                                    }
+                                }
+                            },
+                            {
+                                "content": {
+                                    "id": "928327d4-3cad-421d-843a-0eeca345f0fa",
+                                    "contentType": "STORY",
+                                    "isHosted": true,
+                                    "title": "Micron to invest $200 billion in US memory facilities",
+                                    "thumbnail": {
+                                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/293868e0-4794-11f0-b1ff-d7d767ad7e4d",
+                                        "originalWidth": 2200,
+                                        "originalHeight": 1492,
+                                        "caption": "",
+                                        "resolutions": null
+                                    },
+                                    "provider": {
+                                        "displayName": "Yahoo Finance",
+                                        "sourceId": "yahoofinance.com"
+                                    },
+                                    "previewUrl": null,
+                                    "providerContentUrl": "",
+                                    "canonicalUrl": {
+                                        "url": "https://finance.yahoo.com/news/micron-to-invest-200-billion-in-us-memory-facilities-135800900.html"
+                                    },
+                                    "clickThroughUrl": {
+                                        "url": "https://finance.yahoo.com/news/micron-to-invest-200-billion-in-us-memory-facilities-135800900.html"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "id": "0cdfdba7-aae7-4286-b236-5923a87c4ad5",
+                "content": {
+                    "id": "0cdfdba7-aae7-4286-b236-5923a87c4ad5",
+                    "contentType": "STORY",
+                    "title": "BT CEO hails telecom networks as 'UK's real digital backbone'",
+                    "description": "",
+                    "summary": "Allison Kirkby, CEO of BT, highlighted how the company is playing a key role in developing the infrastructure that acts as the 'UK's real digital backbone'.",
+                    "pubDate": "2025-06-13T05:00:59Z",
+                    "displayTime": "2025-06-13T05:00:59Z",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/60ddaa30-479e-11f0-9ff7-b458156576d7",
+                        "originalWidth": 5123,
+                        "originalHeight": 3415,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/5QtOEfdElWSXY75bhefYEw--~B/aD0zNDE1O3c9NTEyMzthcHBpZD15dGFjaHlvbg--/https://s.yimg.com/os/creatr-uploaded-images/2025-06/60ddaa30-479e-11f0-9ff7-b458156576d7",
+                                "width": 5123,
+                                "height": 3415,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/emu4.SJYKcqCNo_8QYocsw--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-06/60ddaa30-479e-11f0-9ff7-b458156576d7",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Yahoo Finance UK",
+                        "url": "http://uk.finance.yahoo.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://uk.finance.yahoo.com/news/bt-ceo-london-tech-week-uk-infrastructure-050059140.html",
+                        "site": "finance",
+                        "region": "GB",
+                        "lang": "en-GB"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/news/bt-ceo-london-tech-week-uk-infrastructure-050059140.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": false
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            },
+            {
+                "id": "f402eb67-b67d-3c1e-9254-561961517ab7",
+                "content": {
+                    "id": "f402eb67-b67d-3c1e-9254-561961517ab7",
+                    "contentType": "VIDEO",
+                    "title": "Consumer sentiment, Regeneron meeting, Apple WWDC: What to Watch",
+                    "description": "<p>Market Domination Overtime hosts <a data-i13n=\"cpos:1;pos:1\" href=\"https://finance.yahoo.com/author/julie-hyman/\">Julie Hyman</a> and <a data-i13n=\"cpos:2;pos:1\" href=\"https://finance.yahoo.com/author/josh-lipton/\">Josh Lipton</a> preview the top market stories and headlines Wall Street will be paying attention to tomorrow, Friday, June 13, including June's preliminary consumer sentiment reading, Regeneron Pharmaceuticals' (<a data-i13n=\"cpos:3;pos:1\" href=\"https://finance.yahoo.com/quote/REGN\">REGN</a>) annual shareholder meeting, and the closing day of Apple's (<a data-i13n=\"cpos:4;pos:1\" href=\"https://finance.yahoo.com/quote/AAPL\">AAPL</a>) <a data-i13n=\"cpos:5;pos:1\" href=\"https://finance.yahoo.com/news/classic-apple-why-apple-is-taking-the-slow-road-with-ai-190306633.html\">2025 Worldwide Developers Conference (WWDC).</a></p>\n<p>To watch more expert insights and analysis on the latest market action, check out more Market Domination Overtime\u00a0<a data-i13n=\"cpos:6;pos:1\" href=\"https://finance.yahoo.com/videos/series/market-domination-overtime/\">here</a>.</p>",
+                    "summary": "Market Domination Overtime hosts Julie Hyman and Josh Lipton preview the top market stories and headlines Wall Street will be paying attention to tomorrow, Friday, June 13, including June's preliminary consumer sentiment reading, Regeneron Pharmaceuticals' (REGN) annual shareholder meeting, and the closing day of Apple's (AAPL) 2025 Worldwide Developers Conference (WWDC). To watch more expert insights and analysis on the latest market action, check out more Market Domination Overtime&nbsp;here.",
+                    "pubDate": "2025-06-12T23:00:00Z",
+                    "displayTime": "",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/7c403970-478d-11f0-b7fb-a6f6efff4a45",
+                        "originalWidth": 1920,
+                        "originalHeight": 1080,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/M48guJZ8INcd5OJIzp4Gjg--~B/aD0xMDgwO3c9MTkyMDthcHBpZD15dGFjaHlvbg--/https://s.yimg.com/os/creatr-uploaded-images/2025-06/7c403970-478d-11f0-b7fb-a6f6efff4a45",
+                                "width": 1920,
+                                "height": 1080,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/OzaBCwaeukW5zvgzaLG77g--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-06/7c403970-478d-11f0-b7fb-a6f6efff4a45",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Yahoo Finance Video",
+                        "url": "https://finance.yahoo.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/video/consumer-sentiment-regeneron-meeting-apple-230000900.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/video/consumer-sentiment-regeneron-meeting-apple-230000900.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": true
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            },
+            {
+                "id": "989c444c-2fd9-3bd9-97d0-e5fd045877a1",
+                "content": {
+                    "id": "989c444c-2fd9-3bd9-97d0-e5fd045877a1",
+                    "contentType": "VIDEO",
+                    "title": "'Mag 7' turned 'Mid 7': Is 2025 the end of tech dominance?",
+                    "description": "<p>The tech sector (<a data-i13n=\"cpos:1;pos:1\" href=\"https://finance.yahoo.com/quote/XLK\">XLK</a>), specifically the \"Magnificent Seven,\" made up of Nvidia (<a data-i13n=\"cpos:2;pos:1\" href=\"https://finance.yahoo.com/quote/NVDA\">NVDA</a>), Alphabet (<a data-i13n=\"cpos:3;pos:1\" href=\"https://finance.yahoo.com/quote/GOOG\">GOOG</a>,<a data-i13n=\"cpos:4;pos:1\" href=\"https://finance.yahoo.com/quote/GOOGL\"> GOOGL</a>), Tesla (<a data-i13n=\"cpos:5;pos:1\" href=\"https://finance.yahoo.com/quote/TSLA\">TSLA</a>), Microsoft (<a data-i13n=\"cpos:6;pos:1\" href=\"https://finance.yahoo.com/quote/MSFT\">MSFT</a>), Amazon (<a data-i13n=\"cpos:7;pos:1\" href=\"https://finance.yahoo.com/quote/AMZN\">AMZN</a>), Meta (<a data-i13n=\"cpos:8;pos:1\" href=\"https://finance.yahoo.com/quote/META\">META</a>), and Apple (<a data-i13n=\"cpos:9;pos:1\" href=\"https://finance.yahoo.com/quote/AAPL\">AAPL</a>), was a significant driver of market gains in 2023 and 2024. However, 2025 has been a different story so far.</p>\n<p>Yahoo Finance Markets Reporter <a data-i13n=\"cpos:10;pos:1\" href=\"https://finance.yahoo.com/author/josh-schafer/\">Josh Schafer</a> and Wall Street Alliance Group partner Aadil Zaman sit down with <a data-i13n=\"cpos:11;pos:1\" href=\"https://finance.yahoo.com/author/bradley-smith/\">Brad Smith</a> on Catalysts to take a look at how the Magnificent Seven has underperformed the wider market in 2025.</p>\n<p>To watch more expert insights and analysis on the latest market action, check out more Catalysts <a data-i13n=\"cpos:12;pos:1\" href=\"https://finance.yahoo.com/videos/series/catalysts/\">here</a>.</p>",
+                    "summary": "The tech sector (XLK), specifically the \"Magnificent Seven,\" made up of Nvidia (NVDA), Alphabet (GOOG, GOOGL), Tesla (TSLA), Microsoft (MSFT), Amazon (AMZN), Meta (META), and Apple (AAPL), was a significant driver of market gains in 2023 and 2024. However, 2025 has been a different story so far. Yahoo Finance Markets Reporter Josh Schafer and Wall Street Alliance Group partner Aadil Zaman sit down with Brad Smith on Catalysts to take a look at how the Magnificent Seven has underperformed the wider market in 2025. To watch more expert insights and analysis on the latest market action, check out more Catalysts here.",
+                    "pubDate": "2025-06-12T15:05:05Z",
+                    "displayTime": "",
+                    "isHosted": true,
+                    "bypassModal": false,
+                    "previewUrl": null,
+                    "thumbnail": {
+                        "originalUrl": "https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                        "originalWidth": 1509,
+                        "originalHeight": 849,
+                        "caption": "",
+                        "resolutions": [
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/SE4j9AsrAMTNz18_ewJ0qw--~B/aD04NDk7dz0xNTA5O2FwcGlkPXl0YWNoeW9u/https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                                "width": 1509,
+                                "height": 849,
+                                "tag": "original"
+                            },
+                            {
+                                "url": "https://s.yimg.com/uu/api/res/1.2/qYCUHE7jjD0j0YKvuQmsmw--~B/Zmk9c3RyaW07aD0xMjg7dz0xNzA7YXBwaWQ9eXRhY2h5b24-/https://s.yimg.com/os/creatr-uploaded-images/2025-06/1c7d32d0-479d-11f0-ae5d-15348651cb7c",
+                                "width": 170,
+                                "height": 128,
+                                "tag": "170x128"
+                            }
+                        ]
+                    },
+                    "provider": {
+                        "displayName": "Yahoo Finance Video",
+                        "url": "https://finance.yahoo.com/"
+                    },
+                    "canonicalUrl": {
+                        "url": "https://finance.yahoo.com/video/mag-7-turned-mid-7-150505452.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "clickThroughUrl": {
+                        "url": "https://finance.yahoo.com/video/mag-7-turned-mid-7-150505452.html",
+                        "site": "finance",
+                        "region": "US",
+                        "lang": "en-US"
+                    },
+                    "metadata": {
+                        "editorsPick": true
+                    },
+                    "finance": {
+                        "premiumFinance": {
+                            "isPremiumNews": false,
+                            "isPremiumFreeNews": false
+                        }
+                    },
+                    "storyline": null
+                }
+            }
+        ]
+    },
+    "last_updated": "2025-06-13"
+}

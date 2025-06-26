@@ -10,7 +10,6 @@ from dotenv import load_dotenv
 from crewai import Agent, Task, Crew, LLM
 from langchain_groq import ChatGroq
 from tools.research_tools import ResearchTools
-from crewai_tools import SerperDevTool
 
 
 # Function to run the analysis
@@ -20,7 +19,7 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
 
         # Initialize LLM 
         ##Groq
-        llm2 = ChatGroq(model=f"groq/gemma2-9b-it", temperature=temp)
+        llm = ChatGroq(model=f"groq/llama-3.3-70b-versatile")
         #Ollama
         # llm = Ollama(
         #     model=model,
@@ -28,180 +27,265 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
         #     timeout=600,
         #     verbose=verbose_mode)
         # llm=LLM(model=f"ollama/{model}", base_url="http://localhost:11434", temperature=temp)
-        llm=LLM(model=f"ollama/{model}", base_url="http://localhost:11434")
+        # llm=LLM(model=f"ollama/{model}", base_url="http://localhost:11434")
 
         # Initialize tools
         research_tool = ResearchTools()
-        # Define agents
-        researcher = Agent(
-            role='Senior Research Analyst',
-            goal=f'Provide investment-relevant insights into {ticker} by analyzing its financial statements, performance trends, and stability',
-            backstory="""You are a senior financial analyst at Goldman Sachs specializing in dissecting corporate financials, SEC filings, and live market data to inform institutional investment decisions. You are deeply familiar with interpreting 10-Ks, financial ratios, and identifying red flags in business models.""",
+        
+        # Define agents with memory
+        financial_analyst = Agent(
+            role='Financial Analyst',
+            goal=f'Analyze {ticker}\'s financial health and historical performance',
+            backstory="""You are a senior financial analyst specializing in quantitative analysis and financial metrics. 
+            Your expertise lies in analyzing financial statements, calculating key ratios, and identifying financial trends. 
+            You excel at using financial data tools to assess company health, profitability, and growth potential.
+            Your analyses are known for their accuracy, attention to detail, and ability to identify key financial drivers.""",
             verbose=verbose_mode,
             allow_delegation=False,
+            memory=False,
             tools=[
-                ResearchTools.search_financial_data, #calls yahoo finance
-                ResearchTools.sec_filing, #crawls sec.gov for 10-K filings
+                ResearchTools.search_financial_data,
+                ResearchTools.analyze_financial_ratios,
+                ResearchTools.analyze_historical_trends,
+                # ResearchTools.sec_financial_statements,
+                ResearchTools.sec_mda
             ],
-            llm=llm)
+            llm=llm
+        )
 
-        researcher2 = Agent(
-            role='Market Sentiment Analyst',
-            goal=f'Deliver actionable insights on {ticker} by assessing public sentiment and evaluating its competitive positioning in the market',
-            backstory="""You specialize in real-time market sentiment tracking. Your expertise includes parsing financial news, social media, and analyst reports to assess public perception and company positioning relative to peers.""",
+        market_analyst = Agent(
+            role='Market Analyst',
+            goal=f'Analyze {ticker}\'s market position and competitive landscape',
+            backstory="""You are a market analysis expert specializing in competitive positioning and industry dynamics. 
+            Your expertise lies in analyzing business models, market share, and competitive advantages. 
+            You excel at using business overview and competitor analysis tools to assess market position and growth potential.
+            Your analyses are known for their strategic insights and ability to identify key market drivers.
+            You are particularly skilled at analyzing market sentiment and news to gauge market perception.""",
             verbose=verbose_mode,
             allow_delegation=False,
+            memory=False,
             tools=[
-                # ResearchTools.analyze_market_sentiment_yahoo,
-                ResearchTools.analyze_market_sentiment_serper, # uses Serper API for google search results (headlines)
+                ResearchTools.analyze_competitors,
+                ResearchTools.compare_industry_metrics,
+                ResearchTools.sec_business_overview,
+                ResearchTools.sec_mda,
+                ResearchTools.analyze_market_sentiment_yahoo
             ],
-            llm=llm)
+            llm=llm
+        )
 
-        visionary = Agent(
-            role='Visionary',
-            goal='Forecast the future strategic and financial trajectory of the company based on trends, innovation potential, and industry shifts',
-            backstory="""You are a technology futurist with a strong financial acumen. You specialize in analyzing how emerging technologies, shifting consumer behavior, and global trends impact a company's long-term viability and competitive edge.""",
+        risk_analyst = Agent(
+            role='Risk Analyst',
+            goal=f'Analyze {ticker}\'s key business and financial risks',
+            backstory="""You are a risk analysis specialist focusing on business, financial, and competitive risks. 
+            Your expertise lies in identifying and assessing key risk factors that could impact investment decisions. 
+            You excel at using risk factor and market risk tools to evaluate financial stability and risk exposure.
+            Your analyses are known for their thorough risk assessment and balanced view of opportunities and threats.""",
             verbose=verbose_mode,
             allow_delegation=False,
-            llm=llm)
+            memory=False,
+            tools=[
+                ResearchTools.analyze_financial_ratios,
+                ResearchTools.sec_risk_factors,
+                ResearchTools.sec_market_risk,
+                ResearchTools.assess_management_quality
+            ],
+            llm=llm
+        )
 
-        writer = Agent(
-            role='Senior Editor',
-            goal='Translate analysis into a polished, investor-friendly report with actionable takeaways',
-            backstory="""You are a senior editor at The Wall Street Journal, known for crafting compelling and insightful financial reports for institutional and retail investors alike. Your strength lies in distilling complexity into clarity.""",
+        report_writer = Agent(
+            role='Investment Report Writer',
+            goal=f'Create a clear, well-structured investment report for {ticker} in Markdown format',
+            backstory="""You are a senior investment report writer specializing in creating clear, actionable investment reports. 
+            Your expertise lies in transforming complex analyses into well-structured, executive-friendly reports using Markdown formatting.
+            You excel at:
+            - Creating concise executive summaries
+            - Organizing data into clear tables
+            - Using bullet points for key findings
+            - Presenting recommendations with clear rationale
+            - Maintaining professional tone and clarity
+            Your reports are known for their readability, actionable insights, and professional presentation.""",
             verbose=verbose_mode,
-            llm=llm,
-            allow_delegation=False)
+            allow_delegation=False,
+            tools=[],  # No tools needed as this agent synthesizes others' work
+            llm=llm
+        )
 
-        # Create tasks
-        # task1 = Task(
-        #     description=
-        #     f"""Analyze {ticker}'s financial health and business model based on the latest SEC 10-K filing. Focus on:
-            
-        #     1. Key financial metrics and trends (revenue, profit margins, debt levels)
-        #     2. Business model viability and competitive advantages
-        #     3. Major risk factors that could impact investment
-            
-        #     Provide a concise assessment of the company's financial stability and growth potential.""",
-        #     expected_output="Concise financial analysis with investment-relevant insights",
-        #     agent=researcher)
-        task1 = Task(
-            description=f"""Perform a comprehensive financial health and business model analysis of {ticker} using financial data from Yahoo Finance the most recent SEC 10-K filing. For each section below, extract information from your tools:
+        # Define tasks
+        task1a = Task(
+            description=f"""Analyze current financial health for {ticker}:
 
-        1. **Key Financial Metrics & Trends**
-        - Source: Yahoo Finance.
-        - Analyze revenue growth, profit margins, debt levels, and other core indicators. Highlight any material changes or red flags. Include relevant financial ratios such as ROE, current ratio, and debt-to-equity. Compare year-over-year or quarter-over-quarter performance where applicable.
+            Use search_financial_data and analyze_financial_ratios to evaluate:
+            - Revenue and profit margins
+            - Key financial ratios (profitability, liquidity, leverage)
+            - Current growth rates
 
-        2. **Business Model Viability & Moat**  
-        - Source: SEC 10-K Filing: Item 1 (Business).
-        - Assess how the company makes money, its market position, and any sustainable competitive advantages.
+            Focus on metrics that indicate financial health and performance.
+            """,
+            expected_output="Key financial metrics and ratios analysis.",
+            agent=financial_analyst
+        )
 
-        3. **Risk Factors**  
-        - Source: SEC 10-K Filing: Item 1A (Risk Factors).
-        - Summarize significant risks disclosed in the 10-K (e.g., legal, operational, market-based) that could impact investors.
+        task1b = Task(
+            description=f"""Analyze historical financial performance for {ticker}:
 
-        Use all available tools to gather up-to-date and comprehensive data. Your goal is to support fundamental investment decision-making with a data-driven summary.
+            Use analyze_historical_trends to evaluate:
+            - Revenue and profit growth trends
+            - Financial stability over time
+            - Historical volatility
 
-        ### Output Format:
-
-        **{ticker} Financial Health & Business Model Assessment**
-
-        **1. Key Financial Metrics & Trends**:  
-        ...summary here...
-
-        **2. Business Model Viability & Competitive Advantage**:  
-        ...summary here...
-
-        **3. Major Risk Factors**:  
-        ...summary here...
-
-        **Investment-Relevant Insight**:  
-        Provide a bottom-line assessment (e.g., "financially stable with strong margins, but watch for regulatory risks in international operations").
+            Focus on performance consistency and trends.
         """,
-            expected_output="Structured investor-grade analysis covering metrics, model, risks, and a bottom-line insight.",
-            agent=researcher
+            expected_output="Historical financial performance analysis.",
+            agent=financial_analyst
         )
 
         task2 = Task(
-            description=f"""Conduct a comprehensive sentiment and market position analysis for {ticker}. Your output should support investors in understanding both qualitative sentiment and competitive standing. Your analysis must include:
+            description=f"""Analyze market position and sentiment for {ticker}:
 
-            1. **Overall Sentiment Assessment** — Summarize the general tone of recent news, analyst reports, and public discussions (e.g., Positive, Neutral, Negative, or Mixed). Focus on developments from the past 30–60 days to ensure timely relevance.
-            2. **Article Sentiment Count** — Tally the number of recent articles classified as Positive, Neutral, or Negative based on sentiment cues.
-            3. **Key Themes Driving Sentiment** — Identify 2–3 recurring narratives or issues shaping sentiment (e.g., earnings beats, regulatory concerns, market competition).
-            4. **Competitive Position Overview** — Briefly describe the company's market share, major competitors, and any notable shifts in positioning.
-            5. **Investment-Relevant Insights** — Highlight any implications for current or prospective investors based on your findings (e.g., caution flags, growth signals).
+            Use analyze_competitors and compare_industry_metrics to evaluate:
+            - Market share and competitive position
+            - Financial performance vs industry peers
+            - Growth potential and analyst estimates
 
-            Use web search and sentiment analysis tools to form a clear, structured, investor-friendly report based on current and authoritative sources.
+            Use analyze_market_sentiment_yahoo to assess:
 
-            ### Example Output Format:
+            1. Two-Level Sentiment Analysis
+            - For each article: Title, Date, Source, Headline/Content Sentiment
+            - Key quotes with sentiment labels
+            - Overall sentiment ratios (Positive:Neutral:Negative)
 
-            **{ticker} Sentiment Analysis Report**
+            2. Sentiment Trends & Patterns
+            - 30-60 day tone changes
+            - Recurring themes and narratives
+            - Event-linked sentiment spikes/drops
 
-            **Overall Sentiment Assessment**: Mixed/Neutral
+            3. Sentiment Impact Outlook
+            - Short-term (1-3 months) momentum impact
+            - Medium-term (3-6 months) confidence outlook
+            - Long-term perception shifts
 
-            **Article Sentiment Count**:  
-            - Positive: 1  
-            - Neutral: 3  
-            - Negative: 3  
+            4. Actionable Signals
+            - Key sentiment triggers to monitor
+            - Early warning indicators
+            - Investment exposure recommendations
 
-            aspect base sentiment analysis - go through articles and assess sentiment of different aspects 
-
-
-            **Key Themes Driving Sentiment**:  
-            1. **Market Performance Concerns** – Negative sentiment driven by challenging market environment and stock underperformance.  
-            2. **Investor Caution** – Mixed outlook from analysts; some recommend holding rather than buying.  
-            3. **Potential for Growth** – Positive tone in some reports anticipating long-term recovery or strength.
-
-            **Competitive Position Overview**:  
-            The company maintains a strong presence in its sector but faces increasing pressure from competitors. Recent developments may shift this positioning.
-
-            **Investment-Relevant Insights**:  
-            Given the mixed sentiment and competitive pressures, investors may adopt a cautious stance. Long-term growth potential exists, but short-term risks remain.
+            Focus on competitive position, industry context, and market sentiment.
             """,
-            expected_output=(
-                "An investor-focused market sentiment and positioning report structured as follows:\n"
-                "- Overall Sentiment Assessment\n"
-                "- Article Sentiment Count\n"
-                "- Key Themes Driving Sentiment\n"
-                "- Competitive Position Overview\n"
-                "- Investment-Relevant Insights"
-            ),
-            agent=researcher2
+            expected_output="""Comprehensive market analysis including:
+            - Market position and competitive analysis
+            - Market sentiment and news analysis
+            - Industry context and trends
+            - Strategic implications and recommendations""",
+            agent=market_analyst
         )
 
-
         task3 = Task(
-            description=f"""Based on the financial and market analysis of {ticker}, evaluate its strategic outlook and innovation potential. Include:
+            description=f"""Analyze key risks for {ticker}:
 
-            1. **Future Growth & Innovation** — Evaluate trends like AI, AR/VR, sustainability, and how the company is positioned to capitalize.
-            2. **Potential Disruptions** — Identify external or internal risks (technological, geopolitical, regulatory) that could threaten its model.
-            3. **Sustainability of Competitive Moat** — Assess if the company can defend or extend its advantages in 3–5 years.
+            Use sec_risk_factors and sec_market_risk to identify:
+            - Major business and financial risks
+            - Market and competitive risks
+            - Regulatory and operational risks
 
-            Focus on long-term value creation, scalability, and leadership in innovation. Consider broader macro and industry-level shifts.""",
-            expected_output="Forward-looking analysis of investment potential",
-            agent=visionary,
-            context=[task1, task2])
+            Use analyze_financial_ratios to assess:
+            - Financial stability
+            - Debt levels
+            - Liquidity risks
+
+            Focus on risks that could significantly impact investment returns.
+            """,
+            expected_output="Key risk factors and financial risk assessment.",
+            agent=risk_analyst
+        )
 
         task4 = Task(
-            description=f"""Create a final investment recommendation report for {ticker} that:
+            description=f"""Create investment analysis report for {ticker}:
 
-            1. Summarizes financials, sentiment, and outlook in bullet-point format
-            2. Highlights investment pros/cons from both short- and long-term perspectives
-            3. Provides a clear recommendation (Buy/Hold/Sell) with rationale
-            4. States who the recommendation is most appropriate for (e.g., risk-averse long-term investors vs. short-term traders)
+            Produce a coherent Markdown investment report with an executive summary, bullet-point key findings, data tables, and clear recommendations.
 
-            The report must be markdown formatted, evidence-based, and easy to scan. Include key metrics, themes, and a summary paragraph.""",
-            expected_output=
-            f"A concise investment recommendation report for {ticker} in markdown format",
-            agent=writer,
-            context=[task1, task2, task3])
+            Synthesize the following analyses into a clear investment report:
 
-        # Create and run the crew
+            1. Executive Summary
+            - Key investment thesis
+            - Major findings
+            - Investment recommendation
+            - Critical risks
+
+            2. Financial Analysis
+            - Current financial health (from Task 1a)
+            - Historical performance trends (from Task 1b)
+            - Key financial ratios and metrics
+            [Present key metrics in Markdown tables]
+
+            3. Market Position & Sentiment
+            - Competitive position and market share
+            - Industry comparison
+            - Growth potential
+            [Use bullet points for key findings]
+
+            Market Sentiment Analysis:
+            a) Two-Level Sentiment Analysis
+            - Article-by-article breakdown:
+                • Title, Date, Source
+                • Headline Sentiment (Positive/Neutral/Negative)
+                • Content Sentiment (Positive/Neutral/Negative/Mixed)
+                • Key aspects in article content with sentiment labels
+            - Overall Sentiment Ratios:
+                • Headline: Positive:Neutral:Negative
+                • Content: Positive:Neutral:Negative
+
+            b) Sentiment Trends & Patterns
+            - 30-60 day tone changes
+            - Recurring themes and narratives
+
+            c) Sentiment Impact Outlook
+            - Short-term (1-3 months) momentum impact
+            - Medium-term (3-6 months) confidence outlook
+            - Long-term perception shifts
+
+            d) Actionable Sentiment Signals
+            - Key sentiment triggers to monitor
+            - Early warning indicators
+            - Investment exposure recommendations
+
+            4. Risk Assessment
+            - Key business and financial risks
+            - Market and competitive risks
+            - Financial stability and liquidity
+            [Prioritize risks by impact]
+
+            5. Investment Recommendation
+            - Buy/Sell/Hold recommendation
+            - Key investment drivers
+            - Major risks to consider
+            [Clear, actionable recommendation]
+
+            Format Requirements:
+            - Use Markdown headers for sections
+            - Create tables for numerical data
+            - Use bullet points for key findings
+            - Include clear section breaks
+            - Maintain professional tone
+            - Use tables for sentiment ratios
+            - Use blockquotes for key article quotes
+            """,
+            expected_output="Well-structured Markdown investment report with clear recommendations and supporting data.",
+            agent=report_writer
+        )
+
+        # Create the crew
         crew = Crew(
-            agents=[researcher, researcher2, visionary, writer],
-            tasks=[task1, task2, task3, task4],
+            agents=[
+                financial_analyst,
+                market_analyst,
+                risk_analyst,
+                report_writer
+            ],
+            tasks=[task1a, task1b, task2, task3, task4],
             sequential=True,
             verbose=verbose_mode,
+            memory=False
         )
 
         # Run the analysis

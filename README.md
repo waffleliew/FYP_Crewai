@@ -8,8 +8,6 @@ When it comes to implementing AI in finance, we provide template-based approache
 
 
 
-
-
 ## Vision
 
 Our vision is to create a comprehensive learning platform that covers all aspects of AI-assisted automations for the finance industry. We believe that AI has the potential to transform the way we work and live, and we want to empower individuals and organizations to harness the power of AI to achieve their financial goals.
