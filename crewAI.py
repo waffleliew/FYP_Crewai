@@ -9,25 +9,46 @@ from dotenv import load_dotenv
 # Import your existing modules
 from crewai import Agent, Task, Crew, LLM
 from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 from tools.research_tools import ResearchTools
 
+def get_llm(model="llama-3.3-70b-versatile"):
+    """
+    Get the appropriate LLM based on the model selection.
+    Args:
+        model (str): The model name/identifier
+    Returns:
+        LLM: The configured LLM instance
+    """
+    if model.startswith("gpt-"):
+        # OpenAI models
+        return ChatOpenAI(
+            model=model,
+            temperature=0.7,
+            api_key=os.getenv("OPENAI_API_KEY")
+        )
+    else:
+        # Groq models (default)
+        return ChatGroq(model=f"groq/llama-3.3-70b-versatile")
 
 # Function to run the analysis
-def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
+def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=0.7, verbose_mode=True):
+    """
+    Run analysis on an earnings call transcript, optionally enriching with external data.
+    Args:
+        transcript (str): The earnings call transcript text.
+        ticker (str, optional): The company ticker symbol for enrichment.
+        model (str): LLM model name.
+        temp (float): LLM temperature.
+        verbose_mode (bool): Verbosity flag.
+    Returns:
+        str: The generated analyst report.
+    """
     try:
         print(f"Running analysis using model {model}")
 
         # Initialize LLM 
-        ##Groq
-        llm = ChatGroq(model=f"groq/llama-3.3-70b-versatile")
-        #Ollama
-        # llm = Ollama(
-        #     model=model,
-        #     temperature=temp,
-        #     timeout=600,
-        #     verbose=verbose_mode)
-        # llm=LLM(model=f"ollama/{model}", base_url="http://localhost:11434", temperature=temp)
-        # llm=LLM(model=f"ollama/{model}", base_url="http://localhost:11434")
+        llm = get_llm(model)
 
         # Initialize tools
         research_tool = ResearchTools()
@@ -35,11 +56,8 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
         # Define agents with memory
         financial_analyst = Agent(
             role='Financial Analyst',
-            goal=f'Analyze {ticker}\'s financial health and historical performance',
-            backstory="""You are a senior financial analyst specializing in quantitative analysis and financial metrics. 
-            Your expertise lies in analyzing financial statements, calculating key ratios, and identifying financial trends. 
-            You excel at using financial data tools to assess company health, profitability, and growth potential.
-            Your analyses are known for their accuracy, attention to detail, and ability to identify key financial drivers.""",
+            goal=f"Analyze the company's financial health and performance based solely on the provided earnings call transcript.",
+            backstory="""You are a senior financial analyst specializing in extracting quantitative insights from earnings call transcripts. Your analyses are known for their accuracy, attention to detail, and ability to identify key financial drivers using only the transcript content.""",
             verbose=verbose_mode,
             allow_delegation=False,
             memory=False,
@@ -47,7 +65,6 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
                 ResearchTools.search_financial_data,
                 ResearchTools.analyze_financial_ratios,
                 ResearchTools.analyze_historical_trends,
-                # ResearchTools.sec_financial_statements,
                 ResearchTools.sec_mda
             ],
             llm=llm
@@ -55,12 +72,8 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
 
         market_analyst = Agent(
             role='Market Analyst',
-            goal=f'Analyze {ticker}\'s market position and competitive landscape',
-            backstory="""You are a market analysis expert specializing in competitive positioning and industry dynamics. 
-            Your expertise lies in analyzing business models, market share, and competitive advantages. 
-            You excel at using business overview and competitor analysis tools to assess market position and growth potential.
-            Your analyses are known for their strategic insights and ability to identify key market drivers.
-            You are particularly skilled at analyzing market sentiment and news to gauge market perception.""",
+            goal=f"Analyze the company's market position and sentiment based solely on the provided earnings call transcript.",
+            backstory="""You are a market analysis expert specializing in extracting competitive and sentiment insights from earnings call transcripts. Your analyses are known for their strategic insights and ability to identify key market drivers using only the transcript content.""",
             verbose=verbose_mode,
             allow_delegation=False,
             memory=False,
@@ -76,11 +89,8 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
 
         risk_analyst = Agent(
             role='Risk Analyst',
-            goal=f'Analyze {ticker}\'s key business and financial risks',
-            backstory="""You are a risk analysis specialist focusing on business, financial, and competitive risks. 
-            Your expertise lies in identifying and assessing key risk factors that could impact investment decisions. 
-            You excel at using risk factor and market risk tools to evaluate financial stability and risk exposure.
-            Your analyses are known for their thorough risk assessment and balanced view of opportunities and threats.""",
+            goal=f"Identify and assess key risks based solely on the provided earnings call transcript.",
+            backstory="""You are a risk analysis specialist focusing on extracting and evaluating risk factors from earnings call transcripts. Your analyses are known for their thorough risk assessment and balanced view of opportunities and threats using only the transcript content.""",
             verbose=verbose_mode,
             allow_delegation=False,
             memory=False,
@@ -95,16 +105,8 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
 
         report_writer = Agent(
             role='Investment Report Writer',
-            goal=f'Create a clear, well-structured investment report for {ticker} in Markdown format',
-            backstory="""You are a senior investment report writer specializing in creating clear, actionable investment reports. 
-            Your expertise lies in transforming complex analyses into well-structured, executive-friendly reports using Markdown formatting.
-            You excel at:
-            - Creating concise executive summaries
-            - Organizing data into clear tables
-            - Using bullet points for key findings
-            - Presenting recommendations with clear rationale
-            - Maintaining professional tone and clarity
-            Your reports are known for their readability, actionable insights, and professional presentation.""",
+            goal=f"Create a persuasive, well-structured investment report based solely on transcript analysis.",
+            backstory="""You are a senior investment report writer specializing in synthesizing transcript-based analyses into clear, actionable investment reports. Your reports are known for their readability, actionable insights, and professional presentation, using only the transcript content.""",
             verbose=verbose_mode,
             allow_delegation=False,
             tools=[],  # No tools needed as this agent synthesizes others' work
@@ -112,165 +114,85 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
         )
 
         # Define tasks
-        task1a = Task(
-            description=f"""Analyze current financial health for {ticker}:
+        task1 = Task(
+            description=f"""
+Analyze the following earnings call transcript for {ticker}:
 
-            Use search_financial_data and analyze_financial_ratios to evaluate:
-            - Revenue and profit margins
-            - Key financial ratios (profitability, liquidity, leverage)
-            - Current growth rates
+{transcript}
 
-            Focus on metrics that indicate financial health and performance.
-            """,
-            expected_output="Key financial metrics and ratios analysis.",
-            agent=financial_analyst
-        )
-
-        task1b = Task(
-            description=f"""Analyze historical financial performance for {ticker}:
-
-            Use analyze_historical_trends to evaluate:
-            - Revenue and profit growth trends
-            - Financial stability over time
-            - Historical volatility
-
-            Focus on performance consistency and trends.
-        """,
-            expected_output="Historical financial performance analysis.",
+Extract and analyze financial health and performance. Focus on:
+- Revenue and profit margins discussed in the call
+- Key financial ratios (profitability, liquidity, leverage)
+- Growth rates and trends mentioned
+- Any material changes or red flags highlighted by management
+Use only the information present in the transcript.
+""",
+            expected_output="Key financial metrics and ratios analysis, with transcript quotes.",
             agent=financial_analyst
         )
 
         task2 = Task(
-            description=f"""Analyze market position and sentiment for {ticker}:
+            description=f"""
+Analyze the following earnings call transcript for {ticker}:
 
-            Use analyze_competitors and compare_industry_metrics to evaluate:
-            - Market share and competitive position
-            - Financial performance vs industry peers
-            - Growth potential and analyst estimates
+{transcript}
 
-            Use analyze_market_sentiment_yahoo to assess:
-
-            1. Two-Level Sentiment Analysis
-            - For each article: Title, Date, Source, Headline/Content Sentiment
-            - Key quotes with sentiment labels
-            - Overall sentiment ratios (Positive:Neutral:Negative)
-
-            2. Sentiment Trends & Patterns
-            - 30-60 day tone changes
-            - Recurring themes and narratives
-            - Event-linked sentiment spikes/drops
-
-            3. Sentiment Impact Outlook
-            - Short-term (1-3 months) momentum impact
-            - Medium-term (3-6 months) confidence outlook
-            - Long-term perception shifts
-
-            4. Actionable Signals
-            - Key sentiment triggers to monitor
-            - Early warning indicators
-            - Investment exposure recommendations
-
-            Focus on competitive position, industry context, and market sentiment.
-            """,
-            expected_output="""Comprehensive market analysis including:
-            - Market position and competitive analysis
-            - Market sentiment and news analysis
-            - Industry context and trends
-            - Strategic implications and recommendations""",
+Analyze the company's market position and sentiment as discussed in the transcript. Focus on:
+- Management's comments on market share, competition, and industry trends
+- Analyst or participant questions about market position
+- Any sentiment signals (positive/negative) from the transcript
+Use only the information present in the transcript.
+""",
+            expected_output="Comprehensive market and sentiment analysis, with transcript evidence.",
             agent=market_analyst
         )
 
         task3 = Task(
-            description=f"""Analyze key risks for {ticker}:
+            description=f"""
+Analyze the following earnings call transcript for {ticker}:
 
-            Use sec_risk_factors and sec_market_risk to identify:
-            - Major business and financial risks
-            - Market and competitive risks
-            - Regulatory and operational risks
+{transcript}
 
-            Use analyze_financial_ratios to assess:
-            - Financial stability
-            - Debt levels
-            - Liquidity risks
-
-            Focus on risks that could significantly impact investment returns.
-            """,
-            expected_output="Key risk factors and financial risk assessment.",
+Identify and assess key risks mentioned in the transcript. Focus on:
+- Business, financial, and operational risks discussed by management or analysts
+- Any new/emerging risks highlighted in the call
+Use only the information present in the transcript.
+""",
+            expected_output="Key risk factors and risk assessment, with transcript evidence.",
             agent=risk_analyst
         )
 
         task4 = Task(
-            description=f"""Create investment analysis report for {ticker}:
+            description=f"""
+Synthesize the findings from transcript analysis into a persuasive Markdown investment report for {ticker}. The report should include:
+1. Executive Summary
+   - Key investment thesis
+   - Major findings
+   - Investment recommendation
+   - Critical risks
+2. Financial Analysis (from Task 1)
+   - Key metrics and transcript quotes
+3. Market Position & Sentiment (from Task 2)
+   - Transcript-based findings
+4. Risk Assessment (from Task 3)
+   - Prioritized risks with transcript evidence
+5. Investment Recommendation
+   - For each time frame (next day, next week, next month):
+     - Provide a clear Long or Short recommendation
+     - Give a concise rationale for each time frame based only on the transcript
+Format:
+- Use Markdown headers for sections
+- Create tables for numerical data
+- Use bullet points for key findings
+- Include transcript quotes as blockquotes
+- Maintain professional tone
 
-            Produce a coherent Markdown investment report with an executive summary, bullet-point key findings, data tables, and clear recommendations.
+Earnings call transcript for reference:
 
-            Synthesize the following analyses into a clear investment report:
-
-            1. Executive Summary
-            - Key investment thesis
-            - Major findings
-            - Investment recommendation
-            - Critical risks
-
-            2. Financial Analysis
-            - Current financial health (from Task 1a)
-            - Historical performance trends (from Task 1b)
-            - Key financial ratios and metrics
-            [Present key metrics in Markdown tables]
-
-            3. Market Position & Sentiment
-            - Competitive position and market share
-            - Industry comparison
-            - Growth potential
-            [Use bullet points for key findings]
-
-            Market Sentiment Analysis:
-            a) Two-Level Sentiment Analysis
-            - Article-by-article breakdown:
-                • Title, Date, Source
-                • Headline Sentiment (Positive/Neutral/Negative)
-                • Content Sentiment (Positive/Neutral/Negative/Mixed)
-                • Key aspects in article content with sentiment labels
-            - Overall Sentiment Ratios:
-                • Headline: Positive:Neutral:Negative
-                • Content: Positive:Neutral:Negative
-
-            b) Sentiment Trends & Patterns
-            - 30-60 day tone changes
-            - Recurring themes and narratives
-
-            c) Sentiment Impact Outlook
-            - Short-term (1-3 months) momentum impact
-            - Medium-term (3-6 months) confidence outlook
-            - Long-term perception shifts
-
-            d) Actionable Sentiment Signals
-            - Key sentiment triggers to monitor
-            - Early warning indicators
-            - Investment exposure recommendations
-
-            4. Risk Assessment
-            - Key business and financial risks
-            - Market and competitive risks
-            - Financial stability and liquidity
-            [Prioritize risks by impact]
-
-            5. Investment Recommendation
-            - Buy/Sell/Hold recommendation
-            - Key investment drivers
-            - Major risks to consider
-            [Clear, actionable recommendation]
-
-            Format Requirements:
-            - Use Markdown headers for sections
-            - Create tables for numerical data
-            - Use bullet points for key findings
-            - Include clear section breaks
-            - Maintain professional tone
-            - Use tables for sentiment ratios
-            - Use blockquotes for key article quotes
-            """,
-            expected_output="Well-structured Markdown investment report with clear recommendations and supporting data.",
+{transcript}
+Use only the information present in the transcript.
+""",
+            expected_output="Well-structured Markdown investment report with clear recommendations and supporting data. The investment recommendation section must include explicit Long/Short calls for the next day, week, and month, each with a rationale based only on the transcript.",
             agent=report_writer
         )
 
@@ -282,7 +204,7 @@ def run_analysis(ticker, model, temp=0.7, verbose_mode=True):
                 risk_analyst,
                 report_writer
             ],
-            tasks=[task1a, task1b, task2, task3, task4],
+            tasks=[task1, task2, task3, task4],
             sequential=True,
             verbose=verbose_mode,
             memory=False

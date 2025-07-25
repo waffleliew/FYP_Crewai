@@ -4,13 +4,19 @@ from dotenv import load_dotenv
 import tempfile 
 import time
 from datetime import datetime
-from crewAI import run_analysis, save_report
+from typing import Annotated
+import re
+# Set AutoGen Docker configuration
+os.environ["AUTOGEN_USE_DOCKER"] = "0"
+
+from autogenAI import run_analysis, save_report
 from langchain_core.documents import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from PyPDF2 import PdfReader
  
 # Load environment variables 
 load_dotenv() 
+ 
  
 # Set page configuration 
 st.set_page_config( 
@@ -26,6 +32,19 @@ if "analysis_history" not in st.session_state:
     st.session_state.analysis_history = []
 if "is_analyzing" not in st.session_state:
     st.session_state.is_analyzing = False
+
+
+def extract_year_from_filename(filename):
+    match = re.search(r'(20\d{2})', filename)
+    if match:
+        return match.group(1)
+    return None
+
+def extract_quarter_from_filename(filename):
+    match = re.search(r'q([1-4])', filename.lower())
+    if match:
+        return f"Q{match.group(1)}"
+    return None
  
 # Sidebar for configuration
 with st.sidebar: 
@@ -33,17 +52,25 @@ with st.sidebar:
     
     # Company selection
     st.subheader("Company Selection")
-    company_ticker = st.text_input("Enter company ticker symbol (e.g., AAPL, MSFT)", "AAPL")
+    company_ticker = st.text_input("Enter company ticker symbol (e.g., AAPL, MSFT)", "FAF")
     
     # Model selection
     st.subheader("Model Selection")
     model_option = st.selectbox(
         "Select LLM Model",
-        ["qwen3:8b","gemma3:12b","qwen2.5:7b","llama3.1"]
-        # ["llama3.1", "meta-llama/llama-4-scout-17b-16e-instruct","llama-3.3-70b-versatile", "llama-3.1-70b-versatile", "llama-3.1-8b-versatile", "mixtral-8x7b-32768"]
+        [
+            "llama-3.3-70b-versatile",  # Groq default
+            "gpt-4o",                   # OpenAI GPT-4 Omni
+            "gpt-4o-mini",              # OpenAI GPT-4 Omni Mini
+            "gpt-4-turbo",              # OpenAI GPT-4 Turbo
+            "gpt-3.5-turbo"             # OpenAI GPT-3.5 Turbo
+        ]
     )
 
-    
+    # Transcript upload
+    st.subheader("Upload Earnings Call Transcript")
+    uploaded_transcript = st.file_uploader("Upload transcript (.txt or .md)", type=["txt", "md"]) 
+
     # Advanced options
     with st.expander("Advanced Options"):
         temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.7, step=0.1)
@@ -115,23 +142,44 @@ with st.sidebar:
     
     # Run analysis button
     if st.button("Run Analysis"):
-        if not company_ticker:
-            st.error("Please enter a company ticker symbol")
-        else:
+        transcript_text = None
+        year = None
+        if uploaded_transcript is not None:
+            transcript_text = uploaded_transcript.read().decode("utf-8")
+            year = extract_year_from_filename(uploaded_transcript.name)
+            quarter = extract_quarter_from_filename(uploaded_transcript.name)
+        
+        if transcript_text:
             st.session_state.is_analyzing = True
-            with st.spinner(f"Analyzing {company_ticker}... This may take several minutes."):
+            with st.spinner("Analyzing uploaded transcript... This may take several minutes."):
                 try:
-                    result = run_analysis(company_ticker, model_option, temperature, verbose)
+                    result = run_analysis(transcript_text, ticker=company_ticker, model=model_option, temp=temperature, verbose_mode=verbose, year=year, quarter=quarter)
                     st.session_state.analysis_result = result
-                    
-                    # Add to history
                     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
                     st.session_state.analysis_history.append({
                         "ticker": company_ticker,
                         "timestamp": timestamp,
                         "result": result
                     })
-                    
+                    st.success("Analysis of uploaded transcript completed!")
+                except Exception as e:
+                    st.error(f"Error during analysis: {str(e)}")
+                finally:
+                    st.session_state.is_analyzing = False
+        elif not company_ticker:
+            st.error("Please enter a company ticker symbol or upload a transcript.")
+        else:
+            st.session_state.is_analyzing = True
+            with st.spinner(f"Analyzing {company_ticker}... This may take several minutes."):
+                try:
+                    result = run_analysis(company_ticker, model=model_option, temp=temperature, verbose_mode=verbose)
+                    st.session_state.analysis_result = result
+                    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+                    st.session_state.analysis_history.append({
+                        "ticker": company_ticker,
+                        "timestamp": timestamp,
+                        "result": result
+                    })
                     st.success(f"Analysis of {company_ticker} completed!")
                 except Exception as e:
                     st.error(f"Error during analysis: {str(e)}")
@@ -142,36 +190,29 @@ with st.sidebar:
 st.title("Financial Analysis Multi-Agent System")
 
 st.markdown("""
-This application uses a multi-agent system to perform comprehensive financial analysis on publicly traded companies.
-The system employs multiple AI agents working together:
+## About This App
 
-- **Research Analyst**: Analyzes SEC filings and financial data
-- **Market Sentiment Analyst**: Examines market sentiment to gauge public opinion
-- **Visionary**: Explores future implications and strategic considerations
-- **Senior Editor**: Compiles findings into a professional report
+**Earnings2Insights: Analyst Report Generation for Investment Guidance**
+
+This app is built for the Earnings2Insights shared task at FinNLP @ EMNLP-2025. The competition challenges participants to automatically generate actionable investment reports from earnings call transcripts, evaluated by human annotators on their ability to guide Long/Short investment decisions for the next day, week, and month.
+
+**Competition Requirements:**
+- Generate a report for each of 64 earnings call transcripts (ECTSum and Professional subsets).
+- Reports must be persuasive, actionable, and follow a detailed structure.
+- Submission is a single JSON file: each entry has the transcript ID and the generated report.
+- Evaluation is based on human annotators' investment decisions using your reports.
+
+**Our Solution:**
+- Uses a multi-agent LLM system (AutoGen) with specialized agents (Investor, Writer, Analyst, Editor) collaborating in a feedback loop.
+- Produces structured, transparent reports with explicit Long/Short recommendations for multiple time frames.
+
+For more details, see the [Task Description](https://sigfintech.github.io/fineval.html).
 """)
 
 # Display analysis result
 if st.session_state.is_analyzing:
     st.info("Analysis in progress... Please wait.")
     
-    # Add a placeholder for progress updates
-    progress_placeholder = st.empty()
-    progress_bar = st.progress(0)
-    
-    # Simulate progress updates
-    for i in range(100):
-        # Update progress
-        progress_bar.progress(i + 1)
-        if i == 20:
-            progress_placeholder.info("Research Analyst gathering financial data...")
-        elif i == 40:
-            progress_placeholder.info("Market Sentiment Analyst analyzing market sentiment...")
-        elif i == 60:
-            progress_placeholder.info("Visionary exploring future implications...")
-        elif i == 80:
-            progress_placeholder.info("Senior Editor compiling final report...")
-        time.sleep(0.1)
 
 elif st.session_state.analysis_result:
     st.subheader("Analysis Result")
@@ -196,3 +237,4 @@ if st.session_state.analysis_history:
             st.markdown(analysis['result'])
 else:
     st.info("No analysis history yet. Run an analysis to get started!")
+

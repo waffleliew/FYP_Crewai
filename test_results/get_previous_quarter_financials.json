@@ -1,0 +1,64 @@
+{
+    "key_financial_ratios": {
+        "current_quarter": {
+            "Gross Margin (%)": 46.59,
+            "Operating Margin (%)": 69.06,
+            "Net Margin (%)": 12.96,
+            "EPS Surprise (%)": 21.62,
+            "Free Cash Flow": 272587000.0,
+            "Cash Conversion Ratio": 1.3456,
+            "Net Debt": -523737000.0,
+            "Debt-to-Equity": 0.2277,
+            "Capex / OCF (%)": 9.56,
+            "Current Ratio": 17.6905
+        },
+        "previous_quarter": {
+            "Gross Margin (%)": 85.15,
+            "Operating Margin (%)": 15.35,
+            "Net Margin (%)": 11.2,
+            "EPS Surprise (%)": 13.1,
+            "Free Cash Flow": 286365000.0,
+            "Cash Conversion Ratio": 1.6592,
+            "Net Debt": -787643000.0,
+            "Debt-to-Equity": 0.2267,
+            "Capex / OCF (%)": 7.79,
+            "Current Ratio": 5.8676
+        }
+    },
+    "financial_metrics": {
+        "current_quarter": {
+            "Revenue": "1728664000",
+            "GrossProfit": "805366000",
+            "OperatingIncome": "1193855000",
+            "NetIncome": "223998000",
+            "OperatingCashFlow": "301408000",
+            "Capex": "28821000",
+            "ShortTermDebt": "438412000",
+            "LongTermDebt": "568232000",
+            "CashAndEquivalents": "1530381000",
+            "TotalDebt": 1006644000.0,
+            "ShareholdersEquity": "4420484000",
+            "CurrentAssets": "1810344000",
+            "CurrentLiabilities": "102334000",
+            "ActualEPS": "1.8",
+            "EstimatedEPS": "1.48"
+        },
+        "previous_quarter": {
+            "Revenue": "1671196000",
+            "GrossProfit": "1422944000",
+            "OperatingIncome": "256566000",
+            "NetIncome": "187182000",
+            "OperatingCashFlow": "310572000",
+            "Capex": "24207000",
+            "ShortTermDebt": "233483000",
+            "LongTermDebt": "728332000",
+            "CashAndEquivalents": "1749458000",
+            "TotalDebt": 961815000.0,
+            "ShareholdersEquity": "4242141000",
+            "CurrentAssets": "2062815000",
+            "CurrentLiabilities": "351562000",
+            "ActualEPS": "1.64",
+            "EstimatedEPS": "1.45"
+        }
+    }
+}

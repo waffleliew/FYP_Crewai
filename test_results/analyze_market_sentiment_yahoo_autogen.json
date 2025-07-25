@@ -1,0 +1,27 @@
+{
+    "ticker": "RPM",
+    "calculated_quarter_end": "2022-02-28",
+    "actual_quarter_end": "2022-02-28",
+    "earnings_report_date": "2022-04-06",
+    "articles": [
+        {
+            "title": "Supply-Chain Woes to Hurt RPM International  ( RPM )  Q3 Earnings",
+            "date": "20220404T135200",
+            "source": "Zacks Commentary",
+            "summary": "Supply-chain disruptions and higher costs and expenses are likely to reflect on RPM International's (RPM) fiscal Q3 results.",
+            "url": "https://www.zacks.com/stock/news/1892273/supply-chain-woes-to-hurt-rpm-international-rpm-q3-earnings",
+            "overall_sentiment_score": -0.155562,
+            "overall_sentiment_label": "Somewhat-Bearish"
+        },
+        {
+            "title": "Stock Market Investing Action Plan - April 4-8: Fed Minutes, Yield Curve, Oil Prices In Focus",
+            "date": "20220401T225900",
+            "source": "Investors Business Daily",
+            "summary": "Stock Market Investing Action Plan - April 4-8: Fed Minutes, Yield Curve, Oil Prices In Focus Investor's Business Daily",
+            "url": "https://www.investors.com/research/investing-action-plan/stock-market-investing-action-plan-april-4-8-fed-minutes-yield-curve-oil-prices-in-focus/",
+            "overall_sentiment_score": -0.109057,
+            "overall_sentiment_label": "Neutral"
+        }
+    ],
+    "last_updated": "2025-07-11"
+}

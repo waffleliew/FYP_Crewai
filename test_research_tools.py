@@ -7,7 +7,7 @@ def test_research_tools():
     tools = ResearchTools()
     
     # Test ticker
-    ticker = "AAPL"  # NVIDIA as an example
+    # ticker = "PCAR"  # NVIDIA as an example
     
     print("\n=== Testing Research Tools ===\n")
     
@@ -137,5 +137,25 @@ def test_research_tools():
     # with open('test_results/SEC_Gov_overview.json', 'w') as f:
     #     json.dump(governance, f, indent=4)
 
+
+    date = "2023-12-31"  # Example date, adjust as needed
+    print("\n=== Testing get_previous_quarter_financials ===\n")
+    result = tools.get_previous_quarter_financials(ticker="FAF", year="2019", quarter="Q4")
+    print("get_previous_quarter_financials Response:")
+    pprint(result)
+    os.makedirs('test_results', exist_ok=True)
+    with open('test_results/get_previous_quarter_financials.json', 'w') as f:
+        json.dump(result, f, indent=4)
+
+
+    # date = "2024-04-30"  # Example date, adjust as needed
+    # print("\n=== Testing analyze_market_sentiment_yahoo_autogen ===\n")
+    # result = tools.analyze_market_sentiment_alphavantage(ticker="VSH", year="2021", quarter="Q2")
+    # print("analyze_market_sentiment_yahoo_autogen Response:")
+    # pprint(result)
+    # os.makedirs('test_results', exist_ok=True)
+    # with open('test_results/analyze_market_sentiment_yahoo_autogen.json', 'w') as f:
+    #     json.dump(result, f, indent=4)
+
 if __name__ == "__main__":
-    test_research_tools() 
+    test_research_tools()

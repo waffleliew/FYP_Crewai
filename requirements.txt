@@ -25,3 +25,5 @@ brave-search>=0.1.2
 firecrawl-py 'crewai[tools]'
 nltk
 gnews
+
+autogen-core

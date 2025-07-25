@@ -18,10 +18,48 @@ The AI-Automation-Finance covers a wide range of topics related to AI-assisted a
   + AI-powered stock analysis and prediction
   + Fundamental SEC 10-K based analysis using AI
   + No-code/low-code AI tools for finance and investing
+  + Multi-agent AI systems for earnings call analysis
+  + OpenAI and Groq API integrations
 
+## Setup
 
-1. Set the values for the environment variables
-2. Run python main.py
+1. Set the values for the environment variables in your `.env` file:
+   ```
+   GROQ_API_KEY=your_groq_api_key_here
+   OPENAI_API_KEY=your_openai_api_key_here
+   ```
+
+2. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. Run the Streamlit app:
+   ```bash
+   streamlit run app.py
+   ```
+
+**Note**: The application automatically sets `AUTOGEN_USE_DOCKER=0` to disable Docker requirements for AutoGen agents.
+
+## Model Support
+
+This application supports multiple LLM providers:
+
+### OpenAI Models
+- `gpt-4o` - GPT-4 Omni (latest)
+- `gpt-4o-mini` - GPT-4 Omni Mini
+- `gpt-4-turbo` - GPT-4 Turbo
+- `gpt-3.5-turbo` - GPT-3.5 Turbo
+
+### Groq Models
+- `llama-3.3-70b-versatile` - Llama 3.3 70B (default)
+
+## Testing
+
+To test the OpenAI integration:
+```bash
+python test_openai_integration.py
+```
 
 
 ## Contributing
