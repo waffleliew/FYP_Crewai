@@ -39,18 +39,18 @@ def get_config_list(model="llama-3.3-70b-versatile"):
             }
         ]
 
-def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=0.95, verbose_mode=True, max_rounds=2, year=None, quarter=None):
+def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=0.7, verbose_mode=True, max_rounds=2, year=None, quarter=None):
     """
     Run analysis on an earnings call transcript using an AutoGen multi-agent feedback loop.
     Returns:
         str: The generated analyst report.
     """
     try:
-        print(f"Running analysis using model {model}, for ticker: {ticker}, transcript year: {year}, quarter: {quarter}")
+        print(f"Running analysis using model {model}, for transcript year: {year}, quarter: {quarter}")
 
         config_list = get_config_list(model)
-        llm_config = {"config_list": config_list, "temperature": temp}
-        # llm_config = {"config_list": config_list}
+        # llm_config = {"config_list": config_list, "temperature": temp}
+        llm_config = {"config_list": config_list}
 
         # Agents
         client_agent = autogen.UserProxyAgent(
@@ -101,109 +101,61 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
         )
 
 
-        writer_prompt = f"""
-        ### INSTRUCTIONS START ###
+        writer_prompt = (
+            """You are the Writer Agent. Your task is to draft and revise a structured investment report using Markdown formatting, based on the earnings call transcript (prepared remarks + Q&A) and feedback from other agents.
 
-        You are the Writer Agent. Your task is to draft and revise a structured investment report using Markdown formatting, based on the earnings call transcript and feedback from other agents.
+        The report must include the following four sections. Use **Markdown tables** for every subsection where structured data or comparisons are applicable. If data is missing, omit the subsection.
 
-        **Key Rules:**
-        - Your output MUST ONLY be the report content. Do NOT include any of these instructions in the report.
-        - Determine the full company name from the transcript and replace [Company Name] in the title with it.
-        - **For initial draft: Leave placeholders intact only for the following subsections: Key Highlights, Key Financial Metrics, Key Financial Ratios and Investment Insights, Concluding Summary, and News Sentiment. For all other sections, populate based on your analysis of the transcript.**
-        - Only update based on specific feedback or UPDATE messages from Analyst.
-        - Use Markdown tables for structured data. Omit subsections if data missing.
-
-        **Important Instructions for Initial Draft:**
-        - Replace placeholders only with specific UPDATE messages (e.g., KEY HIGHLIGHTS UPDATE).
-        - Incorporate feedback by updating relevant sections.
-
-        **Revision Guidelines:**
-        - Follow specific instructions for each section below.
-        - Always output only the full revised report without extra text.
-        - If you are prompted again, without any new instructions, only reply with the report. Do not generate any conversational reply.
-
-
-        ### INSTRUCTIONS END ###
-
-        ### REPORT TEMPLATE START ###
-
-        ---
-        
-        # [Company Name] ({ticker}) Investment Report - Fiscal {year} {quarter}
-        **Instructions:** (Do not include this in output)
-        - Replace [Company Name] with the full name of the company from the transcript.
-        
         ---
 
         ## 1. Financial Analysis
 
-        ### Key Highlights
-        - 
-        - 
-        -
-
-        *The Analyst Agent will generate and provide key highlights based on financial metrics, ratios, and forecasts.*
-        **Revision Instructions:** (Do not include this in output)
-        - Replace with content from "KEY HIGHLIGHTS UPDATE" without changes.
+        Summarize financial performance using the following table format:
+        First, analyze the transcript and populate this table with any metrics explicitly mentioned or that can be calculated from the transcript data:
 
         ### Key Financial Metrics
+        
+        | Metric                    | Current Quarter | Previous Quarter | QoQ Change |
+        |---------------------------|-----------------|------------------|------------|
+        | Revenue                   |                |                  |            | 
+        | Earnings per Share (EPS)  |                |                  |            | 
+        | Gross Profit             |                |                  |            | 
+        | Operating Income         |                |                  |            |
+        | Net Income               |                |                  |            | 
+        | Operating Cash Flow      |                |                  |            | 
+        | Capex                    |                |                  |            | 
+        | Short-term Debt          |                |                  |            |
+        | Long-term Debt           |                |                  |            |
+        | Cash & Cash Equivalents  |                |                  |            | 
 
-        | Metric                    | Current Quarter | Previous Quarter | QoQ Change | Previous Year | YoY Change |
-        |---------------------------|-----------------|------------------|------------|---------------|------------|
-        | Revenue                   |                 |                  |            |               |            |
-        | Earnings per Share (EPS)  |                 |                  |            |               |            |
-        | Gross Profit              |                 |                  |            |               |            |
-        | Operating Income          |                 |                  |            |               |            |
-        | Net Income                |                 |                  |            |               |            |
-        | Operating Cash Flow       |                 |                  |            |               |            |
-        | Capex                     |                 |                  |            |               |            |
-        | Short-term Debt           |                 |                  |            |               |            |
-        | Long-term Debt            |                 |                  |            |               |            |
-        | Cash & Cash Equivalents   |                 |                  |            |               |            |
+        **Important:**
+        - Only populate metrics that are explicitly mentioned in the transcript or can be calculated from transcript data
+        - Leave cells blank if the data is not available in the transcript
+        - Calculate QoQ changes where both quarters' data is available
+        - The Analyst will fact-check these values against financial statements and provide corrections for you to revise.
 
-        **Important:** (Do not include this in output)
-        - Populate only from transcript data.
-        - Leave blank if unavailable.
-        - Analyst will provide corrections.
-
+        
         ### Key Financial Ratios and Investment Insights
 
-        | Metric                | Current Quarter | Previous Quarter | Previous Year | Formula   | Interpretation |
-        | --------------------- | --------------- | ---------------- | ------------- | --------- | -------------- |
-        | Gross Margin (%)      |                 |                  |               |           |                |
-        | Operating Margin (%)  |                 |                  |               |           |                |
-        | Net Margin (%)        |                 |                  |               |           |                |
-        | EPS Surprise (%)      |                 |                  |               |           |                |
-        | Free Cash Flow        |                 |                  |               |           |                |
-        | Capex / OCF (%)       |                 |                  |               |           |                |
-        | Cash Conversion Ratio |                 |                  |               |           |                |
-        | Net Debt              |                 |                  |               |           |                |
-        | Current Ratio         |                 |                  |               |           |                |
-        | Debt-to-Equity        |                 |                  |               |           |                |
+        | Metric                | Current Quarter | Previous Quarter   | Formula   | Interpretation |
+        | --------------------- | -------- | ------------ | --------- | -------------- |
+        |                       |          |              |           |                |
 
         *The Analyst Agent will calculate and populate these ratios based on financial statement data.*
-        **Revision Instructions:** (Do not include this in output)
-        - When the Analyst provides the completed table, replace this placeholder with their full table.
-        - Do not alter any values or interpretations.
-        - If analyst did not provide formula, include formula, for these ratios.
 
+        **Revision Instructions:**
+        - When the Analyst Agent provides the completed “Key Financial Ratios and Investment Insights” table, replace the placeholder table above with the full table from the Analyst.
+        - Do not change, recalculate, or omit any values or interpretations from the Analyst’s table.
+        
 
-        ### Concluding Summary
-
-        *The Analyst Agent will provide a concluding summary based on financial metrics and ratios.*
-        **Revision Instructions:** (Do not include this in output)
-        - Replace with content from "FINANCIAL ANALYSIS SUMMARY UPDATE" without changes.
-
-        ---
-
+        
         ## 2. Market Analysis
 
-        ### Opening Remarks Summary:
-        > "[opening remarks summary here]"
-        **Instructions:** (Do not include in output)
-        - Summarize the key opening remarks from the transcript in a concise blockquote.
-        - Do not leave as ellipsis; provide a meaningful summary based on the transcript content.
+        ### Opening Remarks Summary:  
+        Use a short blockquote to include one key quote:  
+        > "…"
 
+        Then summarize key management themes using this table:
 
         | Theme              | Key Message Summary                          |
         |--------------------|----------------------------------------------|
@@ -231,9 +183,6 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
         - Mixed: Both positive and negative effects
         - Neutral: No significant impact
 
-        **Instructions:** (Do not include in output)
-        - Include the Impact Level Scale in your report.
-
         #### Growth Opportunities & M&A
 
         | Opportunity   | Description                       | Timing / Likelihood     |
@@ -246,22 +195,37 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
         |---------------|-----------------------------------|
         |               |                                   |
 
-        ### News Sentiment:
+        ### Sentiment Analysis:
 
-        **Leave this section blank.**
-        The Analyst will provide content. (Do not include this in output)
+        **Leave this section blank.**  
+        The Analyst Agent will fetch relevant news sentiment data and provide a Markdown-formatted summary and table. Once available, insert that content here during revision.
 
         ---
 
         ## 3. Risk Assessment
 
-        **Instructions for this section:** (Do not include in output)
-        - Identify risks only from transcript.
-        - Use table format.
-        - Include the legend for the Impact Level Scale and Likelihood in your report.
+        Review the transcript and identify only those risks that are explicitly mentioned or can be reasonably inferred from management or analyst statements. For each risk you include:
+
+        - Specify the risk category (e.g., Business, Financial, Market, Regulatory/Legal, Management, Forward-looking).
+        - Provide a concise description of the risk.
+        - Assign a Likelihood (Low, Medium, High) and Impact (1–5) based on transcript evidence.
+        - For each risk, include supporting evidence from the transcript in the 'Supporting Evidence' column. This can be one or more quotes, phrases, sentences, or even a full paragraph, as needed to fully support the risk. Use blockquotes (`> ...`) for each distinct piece of evidence.
+
+        **Important:**  
+        - Only include risk categories and rows for which you find clear support in the transcript.  
+        - Do NOT fabricate or force risks for categories that are not mentioned or implied in the transcript.  
+        - Omit any risk category/row that is not supported by transcript evidence.
+
+        Example table (populate only with supported risks):
 
         | Risk Category         | Description                        | Likelihood | Impact (1–5) | Supporting Evidence                |
         |----------------------|------------------------------------|------------|--------------|------------------------------------|
+        | Business Risks       | Slowdown in refinance market       | Medium     | 3            | > "Potential slowdown in refinance markets in H2 2020."
+        |                      |                                    |            |              | > "Management noted a decrease in application volume in late Q4."
+        | Financial Risks      | Decline in investment income       | High       | 3            | > "Anticipated reduction in investment income affecting overall margins."
+        | ...                  | ...                                | ...        | ...          | ...                                |
+
+        ---
 
         **Impact Level Scale:**
         - **1** = Very Low (Minimal effect)
@@ -275,35 +239,28 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
         - **Medium** = Reasonably possible
         - **High** = Likely or already emerging
 
+        **Include Impact Level Scale and Likelihood Legend in this section**
+
         ---
 
         ## 4. Investment Recommendation
 
-        - **Key Investment Drivers**: ...
-        - **Major Risks**: ...
-        - **Recommendation**:
-          - **Next Day**: ...
-          - **Next Week**: ...
-          - **Next Month**: ...
-        - **Catalysts**: ...
+        - **Key Investment Drivers**: Based on financial analysis and market position
+        - **Major Risks**: From risk assessment above
+        - **Recommendation**: 
+          - **Next Day**: Buy/Sell/Hold
+          - **Next Week**: Buy/Sell/Hold  
+          - **Next Month**: Buy/Sell/Hold
+        - **Price Target**: If mentioned in transcript
+        - **Catalysts**: Upcoming events or milestones
 
-        **Instructions:** (Do not include in output)
-        - Include a clear Buy/Sell/Hold call for each timeframe (next day, week, month)
-        - Provide a brief explanation for each call. For example, **Next Week**: Buy as synergy realization and backlog conversion strengthens performance outlook.
-
-        **General:** Use tables, blockquotes, bullets appropriately. (Do not include in output)
-
-        ### REPORT TEMPLATE END ###"""
-    
+        **Use tables, blockquotes for transcript quotes, and bullet points as appropriate. Focus on actionable insights and clear recommendations based on the earnings call analysis.**
+        """
+        )
 
         writer_agent = autogen.AssistantAgent(
             name="Writer",
-            system_message=(
-                writer_prompt +
-                "\n\nIMPORTANT: Your role is strictly limited to drafting and revising the investment report based on the transcript and feedback from other agents. " +
-                "Do not engage in general conversation or provide responses outside of report drafting and revision tasks. " +
-                "When receiving feedback, your only action should be to incorporate the changes into the report structure provided above."
-            ),
+            system_message=writer_prompt,
             llm_config=llm_config,
             max_consecutive_auto_reply=4
         )
@@ -313,100 +270,97 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
 
         Your responsibilities:
 
-        1. Fetch financial data using @historicalfinancialdata({ticker}, {year}, {quarter}) and perform the following actions:
-
-                a) Fact-Check and Correct Financial Metrics:
-                    - Compare the financial metrics in the Writer's draft against the data from the tool.
-                    - Calculate the Quarter-on-Quarter (QoQ) and Year-on-Year (YoY) changes for each metric where possible.
-                    - Consolidate all corrections and additions into a single, comprehensive table.
-
-                    Provide your feedback to the Writer in the following format:
-                    ```
-                    FINANCIAL ANALYSIS UPDATE:
-
-                    Please update the "Key Financial Metrics" table with the following verified data. This includes corrections to existing values and the addition of metrics that were previously missing.
-
-                    | Metric | Current Quarter | Previous Quarter | QoQ Change | Previous Year | YoY Change |
-                    |--------|----------------|------------------|------------|---------------|------------|
-                    | [Metric Name] | [Correct Value] | [Correct Value] | [Calculated QoQ] | [Previous Year Value] | [Calculated YoY] |
-                    | ...    | ...            | ...              | ...        | ...           | ...        |
-
-                    **Summary of Key Changes:**
-                    - [Provide a brief, bulleted list of the most significant corrections or additions. For example: "- Revenue was overstated by 5% in the initial draft." or "- Added Operating Cash Flow, which was missing."]
-
-                    **Note:** All values are sourced directly from the financial statements provided by the tool.
-                    ```
-
-                b) Verify and Enrich the "Key Financial Ratios and Investment Insights" Table:
-                    - Use the `key_financial_ratios` from the tool's response to verify the data in the Writer's draft.
-                    - Calculate the Year-on-Year (YoY) change for each ratio.
-                    - Provide a concise interpretation for each ratio, explaining its significance in the context of the company's performance.
-                    - Include the formula for each ratio.
-
-                    Provide your feedback to the Writer in the following format:
-                    ```
-                    FINANCIAL RATIOS UPDATE:
-
-                    Please update the "Key Financial Ratios and Investment Insights" table with the following verified data and insights.
-
-                    | Metric | Current Quarter | Previous Quarter | Previous Year | YoY Change | Formula | Interpretation |
-                    |--------|-----------------|------------------|---------------|------------|---------|----------------|
-                    | [Ratio Name] | [Correct Value] | [Correct Value] | [Previous Year Value] | [Calculated YoY] | [Formula] | [Concise Interpretation] |
-                    | ... | ... | ... | ... | ... | ... | ... |
-
-                    **Summary of Key Insights:**
-                    - [Provide a brief, bulleted list of the most important insights derived from the ratios. For example: "- Profitability has improved significantly YoY, driven by higher margins." or "- The company's liquidity position has weakened, requiring closer monitoring."]
-                    ```
-
-
-                c) Generate a key highlights section based on the key financial metrics, financial ratios and forecast tables.
-
-                    Provide your key highlights to the Writer in the following format:
-                    ```
-                    KEY HIGHLIGHTS UPDATE:
-
-                    Please replace the Key Highlights placeholder with the following content:
-
-                    ### Key Highlights
-
-                    - [Metric Highlight: e.g., Revenue grew +X% YoY and +Y% QoQ, reflecting Z.]
-                    - [Ratio Highlight: e.g., Gross Margin rose to X%, indicating Y.]
-                    - [Forecast Highlight: e.g., Projected EPS of $X for next quarter, driven by Z.]
-                    - ...
-                    ```
-                    Ensure each bullet provides a brief description explaining key aspects from the metrics, ratios, and forecast tables.
-
-                d) Generate Concluding Summary for Financial Analysis:
-                    - Based on the key financial metrics and ratios, provide a brief concluding summary that highlights the company's financial health, trends, and implications.
+        1. Identify fiscal Period:
+            Extract the fiscal year and quarter from the Prepared Remarks section of the transcript content itself. Look for phrases that indicate the fiscal year and quarter like:
+                - "Fourth Quarter and Full Year 2022" → year="2022", quarter="Q4"
+                - "Q4 2022 Earnings Call" → year="2022", quarter="Q4"
+                - "First Quarter of 2022" → year="2022", quarter="Q1"
                 
+                Only if you cannot find the year or quarter in the transcript content, then use the provided year: {year} and quarter: {quarter}.
+                IMPORTANT: Quarter format MUST be "Q1", "Q2", "Q3", or "Q4" (not just the number).
 
-                    Provide your feedback to the Writer in the following format:
+        2. Fetch financial articles for the same call date using: @historicalfinancialdata(ticker, year, quarter). Use the same year and quarter extracted from step 1.   
+
+            After receiving the tool response:
+                a) Compare the Writer's transcript-based values with the actual financial metrics:
+            
+                    **NOTE: All financial metrics are available in the tool response under response['financial_metrics'] except QoQ change (quarter to quarter change), where you need to calculate it.**
+                    
+                    If you find any discrepancies, provide this feedback:
                     ```
-                    FINANCIAL ANALYSIS SUMMARY UPDATE:
+                    FINANCIAL METRICS CORRECTION REQUIRED:
 
-                    Please add the following as the concluding summary at the end of the Financial Analysis section:
+                    Replace the following metrics with the correct values in the Financial Analysis table:
 
-                    ### Concluding Summary
+                    | Metric | Current Quarter | Previous Quarter | QoQ Change |
+                    |--------|----------------|------------------|------------|
+                    | [Metric Name] | [Correct Value] | [Correct Value] | [QoQ Change] |
 
-                    [Your summary text here, 3-5 sentences.]
+                    Notes:
+                    - Correct values are calculated from financial statements
                     ```
+
+                    If any metrics were left blank by the Writer but are available in the financial data, provide:
+                    ```
+                    ADDITIONAL METRICS AVAILABLE:
+
+                    Add these values to metrics with blank cells in the Financial Analysis table:
+
+                    | Metric | Current Quarter | Previous Quarter | QoQ Change |
+                    |--------|----------------|------------------|------------|
+                    | [Metric] | [Value] | [Value] | [QoQ Change] |
+                    ```
+
+                b) Populate the “Key Financial Ratios and Investment Insights” table using the tool data. 
+                    All required ratios are already provided by the historicalfinancialdata() tool under response['key_financial_ratios']—do not recalculate them.
+                    
+                    The table must use these headers:
+                    | Metric                | Current Quarter | Previous Quarter | Formula   | Interpretation |
+                    |-----------------------|----------------|------------------|-----------|----------------|
+                    
+                    For each metric, provide:
+                    - The value for both quarters (rounded appropriately)
+                    - The formula used (as a string)
+                    - A brief interpretation of what the ratio means
+                    
+                    Insert the completed table in place of the placeholder in the Writer’s draft.
 
         2. Fetch market sentiment articles for the same call date using:
-        @analyzemarketsentiment(ticker, year, quarter). Use the same year and quarter extracted from step 1.
+        @analyzemarketsentiment(ticker, date). Use the same year and quarter extracted from step 1.
 
         For the Sentiment Analysis section, ALWAYS provide a complete structure:
 
         a) If no news data is found:
-           **Instruct the Writer to omit the entire News Sentiment section.**
+           Instruct the Writer to include this structure:
+
+           ### Sentiment Analysis
+
+           **Management Tone & Guidance**: [Extract and analyze management's tone from the earnings call transcript]
+           - Look for phrases indicating confidence, caution, or concern
+           - Analyze forward-looking statements and guidance
+           - Assess management's overall outlook (positive/neutral/negative)
+
+           **Market Sentiment Indicators**: No relevant news articles were found for this earnings period.
+
+           | Date | Source | Sentiment | Score | Headline |
+           |------|--------|-----------|-------|----------|
+           | N/A  | N/A    | N/A       | N/A   | N/A      |
+
+           **Sentiment Score Legend:**
+           - Score Range: -1.0 to 1.0
+           - Interpretation:
+             - -1.0 to -0.6: Very Bearish
+             - -0.6 to -0.2: Bearish
+             - -0.2 to 0.2: Neutral
+             - 0.2 to 0.6: Bullish
+             - 0.6 to 1.0: Very Bullish
 
         b) If news data IS found:
-           Provide a complete News Sentiment section with:
+           Provide a complete sentiment analysis section with:
            - Management tone analysis from transcript
            - News sentiment table with date, source, sentiment, score, headline
            - Sentiment score legend
            - Overall sentiment summary
-
-  
 
         **IMPORTANT:** Once feedback and insertion instructions are complete, hand off the conversation to the Editor Agent."""
 
@@ -428,11 +382,11 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
         # )
         #     # Register the tool signature with the assistant agent
         
-        analyst_agent.register_for_llm(name="historicalfinancialdata", description="Get the previous quarter's financials for a given ticker and date.")(ResearchTools.historicalfinancialdata)
+        analyst_agent.register_for_llm(name="historicalfinancialdata", description="Get the previous quarter's financials for a given ticker and date.")(ResearchTools.get_previous_quarter_financials)
             # Register the tool function with the user proxy agent
-        analyst_agent.register_for_execution(name="historicalfinancialdata")(ResearchTools.historicalfinancialdata)
-        analyst_agent.register_for_llm(name="analyzemarketsentiment", description="Analyze market sentiment from alpha vantage api for a given ticker and date.")(ResearchTools.analyzemarketsentiment)
-        analyst_agent.register_for_execution(name="analyzemarketsentiment")(ResearchTools.analyzemarketsentiment)
+        analyst_agent.register_for_execution(name="historicalfinancialdata")(ResearchTools.get_previous_quarter_financials)
+        analyst_agent.register_for_llm(name="analyzemarketsentiment", description="Analyze market sentiment from alpha vantage api for a given ticker and date.")(ResearchTools.analyze_market_sentiment_alphavantage)
+        analyst_agent.register_for_execution(name="analyzemarketsentiment")(ResearchTools.analyze_market_sentiment_alphavantage)
         
         
         editor_agent = autogen.AssistantAgent(
@@ -446,8 +400,7 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
                 "- Are Markdown headers properly formatted (e.g. `## Financial Analysis`)?\n"
                 "- Are missing info rows properly omitted (not shown as blanks)?\n"
                 "- Is the Analyst's sentiment feedback properly integrated in the Market/Sentiment Analysis section?\n"
-                "- Are Impact level scale and Likelihood legend included in the Risk Assessment section?\n"
-                "- Ensure that all subsections like 'Concluding Summary', 'Key Highlights' are populated with meaningful content and not left empty or as placeholders.\n\n"
+                "- Are Impact level scale and Likelihood legend included in the Risk Assessment section?\n\n"
 
                 "2. **Formatting**:\n"
                 "- Are tables in valid Markdown format (header row, separator row, aligned columns)?\n"
@@ -461,10 +414,6 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
                 "4. **Tone & Readability**:\n"
                 "- Is the language concise, professional, and persuasive?\n"
                 "- Are there any grammar, punctuation, or style inconsistencies?\n\n"
-
-                "5. **Content Purity**:\n"
-                "- Ensure no internal prompt instructions, placeholders, or notes (e.g., '*The Analyst Agent will generate...*') are included in the report.\n"
-                "- If found, instruct the Writer to remove them to keep the report clean and professional.\n\n"
 
                 "Provide your feedback in a structured format:\n"
                 "1. List specific issues that need to be addressed\n"
@@ -491,8 +440,7 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
                 "   - After Writer's revision: Select Editor\n"
                 "   - After Editor's feedback: Select Writer for final revision\n"
                 "   - After Writer's final revision: Select Client\n"
-                "3. IMPORTANT: 1. DO NOT REPEAT AGENT SELECTION CONSECUTIVELY. 2. After Editor gives feedback, you MUST select Writer, not Client and not Analyst.\n\n"
-            
+                "3. IMPORTANT: After Editor gives feedback, you MUST select Writer, not Client.\n\n"
                 "Based on these rules and the conversation history, select the next role from {agentlist}. Only return the role name."
             )
         )
@@ -564,7 +512,7 @@ def run_analysis(transcript, ticker=None, model="llama-3.3-70b-versatile", temp=
         return f"Error during analysis: {str(e)}"
 
 # function to save the report to a file
-def save_report(ticker, year, quarter, content):
+def save_report(ticker, content):
     """
     Save the analysis report to a file.
     Args:
@@ -574,8 +522,8 @@ def save_report(ticker, year, quarter, content):
         str: The path to the saved file
     """
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    filename = f"{ticker}_{year}_{quarter}_{timestamp}.md"
-    filepath = Path('saved_reports/Pro') / filename
+    filename = f"{ticker}_{timestamp}.md"
+    filepath = Path('saved_reports') / filename
     
     with open(filepath, "w") as f:
         f.write(str(content))

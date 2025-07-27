@@ -140,7 +140,7 @@ def test_research_tools():
 
     date = "2023-12-31"  # Example date, adjust as needed
     print("\n=== Testing get_previous_quarter_financials ===\n")
-    result = tools.get_previous_quarter_financials(ticker="FAF", year="2019", quarter="Q4")
+    result = tools.get_previous_quarter_financials(ticker="FN", year="2021", quarter="Q2")
     print("get_previous_quarter_financials Response:")
     pprint(result)
     os.makedirs('test_results', exist_ok=True)

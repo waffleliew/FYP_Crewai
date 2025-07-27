@@ -63,7 +63,8 @@ with st.sidebar:
             "gpt-4o",                   # OpenAI GPT-4 Omni
             "gpt-4o-mini",              # OpenAI GPT-4 Omni Mini
             "gpt-4-turbo",              # OpenAI GPT-4 Turbo
-            "gpt-3.5-turbo"             # OpenAI GPT-3.5 Turbo
+            "gpt-3.5-turbo",             # OpenAI GPT-3.5 Turbo
+            "Bedrock-Claude-4-Sonnet"
         ]
     )
 
@@ -223,7 +224,9 @@ elif st.session_state.analysis_result:
     # Save report button
     if st.button("Save Report"):
         try:
-            filepath = save_report(company_ticker, st.session_state.analysis_result)
+            year = extract_year_from_filename(uploaded_transcript.name)
+            quarter = extract_quarter_from_filename(uploaded_transcript.name)
+            filepath = save_report(company_ticker, year, quarter, st.session_state.analysis_result)
             st.success(f"Report saved to {filepath}")
         except Exception as e:
             st.error(f"Error saving report: {str(e)}")
