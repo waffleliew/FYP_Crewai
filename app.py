@@ -21,7 +21,6 @@ load_dotenv()
 # Set page configuration 
 st.set_page_config( 
     page_title="Financial Analysis Multi-Agent System", 
-    page_icon="📊", 
     layout="wide" 
 ) 
  
@@ -59,12 +58,11 @@ with st.sidebar:
     model_option = st.selectbox(
         "Select LLM Model",
         [
-            "llama-3.3-70b-versatile",  # Groq default
-            "gpt-4o",                   # OpenAI GPT-4 Omni
+            "gpt-4o",                   # OpenAI GPT-4 Omni (Default)
             "gpt-4o-mini",              # OpenAI GPT-4 Omni Mini
             "gpt-4-turbo",              # OpenAI GPT-4 Turbo
             "gpt-3.5-turbo",             # OpenAI GPT-3.5 Turbo
-            "Bedrock-Claude-4-Sonnet"
+            "llama-3.3-70b-versatile",  # Groq Llama-3.3 70B Versatile
         ]
     )
 
@@ -74,72 +72,8 @@ with st.sidebar:
 
     # Advanced options
     with st.expander("Advanced Options"):
-        temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.7, step=0.1)
+        temperature = st.slider("Temperature", min_value=0.0, max_value=1.0, value=0.3, step=0.1)
         verbose = st.checkbox("Verbose Mode", value=True)
-    
-    # # SEC Filing Upload Section
-    # st.subheader("SEC Filing Upload")
-    # uploaded_file = st.file_uploader("Upload SEC Filing PDF", type="pdf")
-    
-    # if uploaded_file is not None:
-    #     # Display file details
-    #     file_details = {"Filename": uploaded_file.name, "FileType": uploaded_file.type, "FileSize": f"{uploaded_file.size / 1024:.2f} KB"}
-    #     st.write(file_details)
-        
-    #     # Process and upload button
-    #     if st.button("Process and Upload SEC Filing"):
-    #         with st.spinner("Processing and uploading SEC filing..."):
-    #             try:
-    #                 # Import the PineconeStore class
-    #                 from upload_sec_filing import PineconeStore
-                    
-    #                 # Create a temporary file to save the uploaded PDF
-    #                 with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
-    #                     tmp_file.write(uploaded_file.getvalue())
-    #                     tmp_path = tmp_file.name
-                    
-    #                 # Extract text from PDF
-    #                 pdf_reader = PdfReader(tmp_path)
-    #                 text = ""
-    #                 for page in pdf_reader.pages:
-    #                     text += page.extract_text()
-                    
-    #                 # Split text into chunks
-    #                 text_splitter = RecursiveCharacterTextSplitter(
-    #                     chunk_size=1000,
-    #                     chunk_overlap=200,
-    #                     length_function=len
-    #                 )
-    #                 chunks = text_splitter.split_text(text)
-                    
-    #                 # Create documents
-    #                 documents = [
-    #                     Document(
-    #                         page_content=chunk,
-    #                         metadata={
-    #                             "source": uploaded_file.name,
-    #                             "company": company_ticker,
-    #                             "file_type": "SEC Filing"
-    #                         }
-    #                     ) for chunk in chunks
-    #                 ]
-                    
-    #                 # Initialize Pinecone store and upload documents
-    #                 pinecone_store = PineconeStore(
-    #                     index_name="company-sec-index",
-    #                     namespace=company_ticker.lower()
-    #                 )
-                    
-    #                 # Add documents to vector store
-    #                 pinecone_store.add_documents(documents)
-                    
-    #                 # Clean up temporary file
-    #                 os.unlink(tmp_path)
-                    
-    #                 st.success(f"Successfully processed and uploaded {len(documents)} chunks from {uploaded_file.name}")
-                    
-    #             except Exception as e:
-    #                 st.error(f"Error processing SEC filing: {str(e)}")
     
     # Run analysis button
     if st.button("Run Analysis"):
@@ -240,4 +174,5 @@ if st.session_state.analysis_history:
             st.markdown(analysis['result'])
 else:
     st.info("No analysis history yet. Run an analysis to get started!")
+
 

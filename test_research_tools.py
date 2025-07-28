@@ -1,4 +1,4 @@
-from tools.research_tools import ResearchTools
+from research_tools import ResearchTools
 import json
 from pprint import pprint
 import os
@@ -139,22 +139,22 @@ def test_research_tools():
 
 
     date = "2023-12-31"  # Example date, adjust as needed
-    print("\n=== Testing get_previous_quarter_financials ===\n")
-    result = tools.get_previous_quarter_financials(ticker="FN", year="2021", quarter="Q2")
-    print("get_previous_quarter_financials Response:")
+    print("\n=== Testing historicalfinancialdata ===\n")
+    result = tools.historicalfinancialdata(ticker="FN", year="2021", quarter="Q2")
+    print("historicalfinancialdata Response:")
     pprint(result)
     os.makedirs('test_results', exist_ok=True)
-    with open('test_results/get_previous_quarter_financials.json', 'w') as f:
+    with open('test_results/historicalfinancialdata.json', 'w') as f:
         json.dump(result, f, indent=4)
 
 
     # date = "2024-04-30"  # Example date, adjust as needed
-    # print("\n=== Testing analyze_market_sentiment_yahoo_autogen ===\n")
-    # result = tools.analyze_market_sentiment_alphavantage(ticker="VSH", year="2021", quarter="Q2")
-    # print("analyze_market_sentiment_yahoo_autogen Response:")
+    # print("\n=== Testing analyzemarketsentiment ===\n")
+    # result = tools.analyzemarketsentiment(ticker="VSH", year="2021", quarter="Q2")
+    # print("analyzemarketsentiment Response:")
     # pprint(result)
     # os.makedirs('test_results', exist_ok=True)
-    # with open('test_results/analyze_market_sentiment_yahoo_autogen.json', 'w') as f:
+    # with open('test_results/analyzemarketsentiment.json', 'w') as f:
     #     json.dump(result, f, indent=4)
 
 if __name__ == "__main__":

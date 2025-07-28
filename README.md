@@ -1,83 +1,110 @@
 # AI Automation Finance
 
-Welcome to AI Automation Finance! This repository is designed to serve as a learning resource for individuals looking to build AI-assisted automations with a focus on the finance industry. 
+Welcome! This project features a multi-agent system for automated Financial Analysis built for the Earnings2Insights shared task at FinNLP @ EMNLP-2025. The competition challenges participants to automatically generate actionable investment reports from earnings call transcripts, evaluated by human annotators on their ability to guide Long/Short investment decisions for the next day, week, and month.
 
-No coding background? No problem! We understand that not everyone comes from a technical background. That's why we've designed this repo to be accessible to all, regardless of coding experience. 
+## Project Overview
 
-When it comes to implementing AI in finance, we provide template-based approaches that simplify the process. Additionally, we offer guidance on integrating with no-code/low-code tools, making it easier than ever to leverage AI for your financial goals.
+This project leverages large language models (LLMs) and multi-agent collaboration framework from AutoGen to automate the analysis of earnings call transcripts and financial data from external tools. The system generates structured investment reports with actionable recommendations, integrating feedback from specialized agents (Writer, Analyst, Editor, Client). 
 
+### Key Features
+- **Multi-Agent Investment Report Generation:** Automated drafting, analysis, and revision of investment reports using LLM-powered agents.
+- **Financial Data Integration:** Fact-checks and updates financial metrics and ratios using real historical data.
+- **Market Sentiment Analysis:** Integrates news sentiment and management tone analysis.
+- **Actionable Recommendations:** Provides clear Buy/Hold/Sell signals with rationale based on financial, market, and risk analysis.
+- **Markdown Report Output:** Generates well-structured, human-readable Markdown reports.
 
+## Directory Structures
+```
+/ (root)
+├── autogenAI.py                # Main multi-agent orchestration script
+├── app.py                      # Streamlit app for running the platform
+├── requirements.txt            
+├── README.md                   
+├── Documentation/              # Project documentation and diagram
+├── Earnings2Insights/          # Main dataset and processing directory
+│   ├── Dataset/              
+│   │   ├── ECTsum/             # ECTsum dataset
+│   │   └── Professional/        # Professional dataset
+│   ├── Convert_MD_Report_To_Json_Tools/  
+│   │   ├── Convert_all_MD_Reports.py    # Batch conversion script for converting markdown reports to JSON format
+│   │   └── print_report_based_on_ECC.py # Report viewer by ECC transcript ID
+│   ├── Generated_Reports/      
+│   └── Earnings2Insights_Result_final.json  # Processed results for submission
+│            
+├── research_tools.py       # Financial data and analysis tools
+└── test_research_tools.py  # Test script for testing tools
 
-## Vision
+```
 
-Our vision is to create a comprehensive learning platform that covers all aspects of AI-assisted automations for the finance industry. We believe that AI has the potential to transform the way we work and live, and we want to empower individuals and organizations to harness the power of AI to achieve their financial goals.
+## File Descriptions
 
-## Topics Covered
+### Core Files
+- **autogenAI.py:** Orchestrates the multi-agent system for report generation and analysis
+- **app.py:** Streamlit web interface for running the platform
+- **requirements.txt:** Lists all Python package dependencies
+- **research_tools.py:** Contains utilities for financial data processing and sentiment analysis
 
-The AI-Automation-Finance covers a wide range of topics related to AI-assisted automations in finance, including:
-  + AI-powered stock analysis and prediction
-  + Fundamental SEC 10-K based analysis using AI
-  + No-code/low-code AI tools for finance and investing
-  + Multi-agent AI systems for earnings call analysis
-  + OpenAI and Groq API integrations
+### Earnings2Insights Directory
+- **Dataset/:** Contains two subdirectories for different types of financial data:
+  - **ECTsum/:** Contains 40 earnings call transcript summaries
+  - **Professional/:** Contains 24 professional financial reports
+- **Convert_MD_Report_To_Json_Tools/:**
+  - **Convert_all_MD_Reports.py:** Converts markdown reports to JSON format
+  - **print_report_based_on_ECC.py:** Utility to view specific reports by their ECC transcript ID
+- **Generated_Reports/:** Stores the generated markdown reports
+- **Earnings2Insights_Result_final.json:** Contains the processed and structured data from all reports
+
+### Documentation
+- **Documentation/:** Contains project documentation, diagrams, and sample feedback templates
 
 ## Setup
 
-1. Set the values for the environment variables in your `.env` file:
-   ```
-   GROQ_API_KEY=your_groq_api_key_here
-   OPENAI_API_KEY=your_openai_api_key_here
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/FYP.git
+   cd FYP
    ```
 
-2. Install dependencies:
+2. Set up your environment variables in a `.env` file:
+   ```
+   OPENAI_API_KEY=your_openai_api_key_here
+   ALPHA_VANTAGE_API_KEY=your_alpha_vantage_api_key_here  (get your alphavantage api key [here](https://www.alphavantage.co/support/#api-key))
+   ```
+
+3. Set up python virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # To activate virtual env on windows, use `venv\Scripts\activate`.
+   ```
+
+4. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
 
-3. Run the Streamlit app:
+5. Run the Streamlit app and follow the instructions in the APP:
    ```bash
    streamlit run app.py
    ```
 
-**Note**: The application automatically sets `AUTOGEN_USE_DOCKER=0` to disable Docker requirements for AutoGen agents.
 
-## Model Support
 
-This application supports multiple LLM providers:
+## Earnings2Insight Submission
 
-### OpenAI Models
-- `gpt-4o` - GPT-4 Omni (latest)
-- `gpt-4o-mini` - GPT-4 Omni Mini
-- `gpt-4-turbo` - GPT-4 Turbo
-- `gpt-3.5-turbo` - GPT-3.5 Turbo
-
-### Groq Models
-- `llama-3.3-70b-versatile` - Llama 3.3 70B (default)
-
-## Testing
-
-To test the OpenAI integration:
+### Viewing Reports
+To view a specific report by its ECC transcrip ID:
+1. Run: 
 ```bash
-python test_openai_integration.py
+python Earnings2Insights/Convert_MD_Report_To_Json_Tools/print_report_based_on_ECC.py
+```
+2. Enter the ECC transcript ID when prompted (e.g., "ABM_q3_2021"). 
+3. The report will be displayed in the console. Copy and Paste the MD report into https://www.markdowntopdf.com to convert it to PDF for better viewing (Optional).
+
+### Converting Reports
+To convert all markdown reports to JSON format for Earnings2Insight Submission:
+1. Run:
+```bash
+python Earnings2Insights/Convert_MD_Report_To_Json_Tools/Convert_all_MD_Reports.py
 ```
 
 
-## Contributing
-
-We welcome contributions from everyone, regardless of your background or experience level. If you'd like to contribute to AI-Automation-Finance, please review our contributing guidelines and submit a pull request with your proposed changes. We'll review your submission and provide feedback as needed.
-
-## Community
-
-We believe that learning is a collaborative process, and we encourage everyone to participate in our community. You can join our community by:
-
-* Submitting issues to ask questions or suggest improvements
-* Participating in discussions on our discussion board
-* Sharing your own resources and experiences with the community
-
-## Code of Conduct
-
-We are committed to creating a welcoming and inclusive community for everyone. Please review our [code of conduct](CODE_OF_CONDUCT.md) before participating in the community.
-
-## License
-
-AI-Automation-Finance is licensed under the Apache 2.0 license. See the [LICENSE](LICENSE) file for more information.
